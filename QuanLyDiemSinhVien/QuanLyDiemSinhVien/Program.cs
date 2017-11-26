@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.UserSkins;
+using DevExpress.Skins;
+using DevExpress.LookAndFeel;
+using QuanLyDiemSinhVien.Forms.Login;
 
 namespace QuanLyDiemSinhVien
 {
@@ -16,7 +19,11 @@ namespace QuanLyDiemSinhVien
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            BonusSkins.Register();
+            SkinManager.EnableFormSkins();
+            UserLookAndFeel.Default.SetSkinStyle("DevExpress Style");
+            Application.Run(new LoginForm());
         }
     }
 }

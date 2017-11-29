@@ -23,6 +23,10 @@ namespace QuanLyDiemSinhVien.Forms.Login
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
+            //  Setup root server connectring
+            string connectString = "Data Source=SHANJI-PC;Initial Catalog=QLDSV;User ID=sa;Password=1234";
+            SqlClient.sharedInstance().sqlRootServerConnectString = connectString;
+
             //  Get ss
             getSubscriptions();
         }
@@ -30,7 +34,7 @@ namespace QuanLyDiemSinhVien.Forms.Login
         //  Features
         void getSubscriptions()
         {
-            string connectString = "Data Source=SHANJI-PC;Initial Catalog=QLDSV;User ID=sa;Password=1234";
+            string connectString = SqlClient.sharedInstance().sqlRootServerConnectString;
             this.getSubscriptionsTableAdapter.Connection.ConnectionString = connectString;
             try
             {

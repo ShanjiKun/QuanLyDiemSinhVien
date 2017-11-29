@@ -15,6 +15,7 @@ namespace QuanLyDiemSinhVien.Sql
     //  BaseClient
     class BaseClient
     {
+        public string sqlRootServerConnectString;
         public string sqlConnectString;
 
         //  Functions

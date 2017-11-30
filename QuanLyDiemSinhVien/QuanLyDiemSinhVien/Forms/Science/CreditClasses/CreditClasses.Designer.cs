@@ -60,8 +60,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.nIEN_KHOATableAdapter = new QuanLyDiemSinhVien.QLDSVDataSet_TablesTableAdapters.NIEN_KHOATableAdapter();
             this.gIANG_VIENTableAdapter = new QuanLyDiemSinhVien.QLDSVDataSet_TablesTableAdapters.GIANG_VIENTableAdapter();
-            this.kHOABindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.kHOATableAdapter = new QuanLyDiemSinhVien.QLDSVDataSet_TablesTableAdapters.KHOATableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.qLDSVDataSet_Tables)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lOP_TCBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lOP_TCGridControl)).BeginInit();
@@ -70,7 +68,6 @@
             this.panelAdding.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gIANGVIENBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nIENKHOABindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kHOABindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // qLDSVDataSet_Tables
@@ -338,15 +335,6 @@
             // 
             this.gIANG_VIENTableAdapter.ClearBeforeFill = true;
             // 
-            // kHOABindingSource
-            // 
-            this.kHOABindingSource.DataMember = "KHOA";
-            this.kHOABindingSource.DataSource = this.qLDSVDataSet_Tables;
-            // 
-            // kHOATableAdapter
-            // 
-            this.kHOATableAdapter.ClearBeforeFill = true;
-            // 
             // CreditClasses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -367,7 +355,6 @@
             this.panelAdding.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gIANGVIENBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nIENKHOABindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kHOABindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -405,7 +392,5 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker dpExam;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.BindingSource kHOABindingSource;
-        private QLDSVDataSet_TablesTableAdapters.KHOATableAdapter kHOATableAdapter;
     }
 }

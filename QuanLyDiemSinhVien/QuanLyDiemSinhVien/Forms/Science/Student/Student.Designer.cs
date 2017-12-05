@@ -58,8 +58,13 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.CT_LOP_TCTableAdapter = null;
             this.tableAdapterManager.GIANG_VIENTableAdapter = null;
+            this.tableAdapterManager.KHOATableAdapter = null;
+            this.tableAdapterManager.LOP_TCTableAdapter = null;
             this.tableAdapterManager.LOPTableAdapter = null;
+            this.tableAdapterManager.MONTableAdapter = null;
+            this.tableAdapterManager.NIEN_KHOATableAdapter = null;
             this.tableAdapterManager.SINH_VIENTableAdapter = this.sINH_VIENTableAdapter;
             this.tableAdapterManager.UpdateOrder = QuanLyDiemSinhVien.QLDSVDataSet_TablesTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
@@ -86,7 +91,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(743, 262);
+            this.ClientSize = new System.Drawing.Size(743, 452);
             this.Controls.Add(this.sINH_VIENGridControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Student";

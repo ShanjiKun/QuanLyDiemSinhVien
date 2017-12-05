@@ -17,6 +17,7 @@ namespace QuanLyDiemSinhVien.Sql
     {
         public string sqlRootServerConnectString;
         public string sqlConnectString;
+        public string scienceID;
 
         //  Functions
         public void execSql(string sql, SuccessBlock success, FailureBlock failure)
@@ -50,6 +51,30 @@ namespace QuanLyDiemSinhVien.Sql
                 //  Close all connection
                 conn.Close();
                 dataReader.Close();
+            }
+            catch (Exception e)
+            {
+                failure(e.Message);
+            }
+        }
+
+        public void execSqlNoResponse(string sql, SuccessNonParamBlock success, FailureBlock failure)
+        {
+            try
+            {
+                //  Open connection
+                SqlConnection conn = new SqlConnection(sqlConnectString);
+                conn.Open();
+
+                //  Execute Sql Command
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteReader();
+
+                //  Success block
+                success();
+
+                //  Close all connection
+                conn.Close();
             }
             catch (Exception e)
             {

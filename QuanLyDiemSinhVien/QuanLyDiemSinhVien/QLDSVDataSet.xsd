@@ -12,7 +12,7 @@
               <DbSource ConnectionRef="shanji-pc.QLDSV.dbo" DbObjectName="QLDSV.dbo.GetSubscriptions" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT Name, ServerName FROM dbo.GetSubscriptions</CommandText>
+                    <CommandText>SELECT Name, ServerName, ScienceID FROM GetSubscriptions</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -21,6 +21,7 @@
             <Mappings>
               <Mapping SourceColumn="Name" DataSetColumn="Name" />
               <Mapping SourceColumn="ServerName" DataSetColumn="ServerName" />
+              <Mapping SourceColumn="ScienceID" DataSetColumn="ScienceID" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -32,7 +33,7 @@
   <xs:element name="QLDSVDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="QLDSVDataSet" msprop:Generator_UserDSName="QLDSVDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="GetSubscriptions" msprop:Generator_TableClassName="GetSubscriptionsDataTable" msprop:Generator_TableVarName="tableGetSubscriptions" msprop:Generator_TablePropName="GetSubscriptions" msprop:Generator_RowDeletingName="GetSubscriptionsRowDeleting" msprop:Generator_RowChangingName="GetSubscriptionsRowChanging" msprop:Generator_RowEvHandlerName="GetSubscriptionsRowChangeEventHandler" msprop:Generator_RowDeletedName="GetSubscriptionsRowDeleted" msprop:Generator_UserTableName="GetSubscriptions" msprop:Generator_RowChangedName="GetSubscriptionsRowChanged" msprop:Generator_RowEvArgName="GetSubscriptionsRowChangeEvent" msprop:Generator_RowClassName="GetSubscriptionsRow">
+        <xs:element name="GetSubscriptions" msprop:Generator_TableClassName="GetSubscriptionsDataTable" msprop:Generator_TableVarName="tableGetSubscriptions" msprop:Generator_RowChangedName="GetSubscriptionsRowChanged" msprop:Generator_TablePropName="GetSubscriptions" msprop:Generator_RowDeletingName="GetSubscriptionsRowDeleting" msprop:Generator_RowChangingName="GetSubscriptionsRowChanging" msprop:Generator_RowEvHandlerName="GetSubscriptionsRowChangeEventHandler" msprop:Generator_RowDeletedName="GetSubscriptionsRowDeleted" msprop:Generator_RowClassName="GetSubscriptionsRow" msprop:Generator_UserTableName="GetSubscriptions" msprop:Generator_RowEvArgName="GetSubscriptionsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name">
@@ -46,6 +47,13 @@
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="128" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ScienceID" msprop:Generator_ColumnVarNameInTable="columnScienceID" msprop:Generator_ColumnPropNameInRow="ScienceID" msprop:Generator_ColumnPropNameInTable="ScienceIDColumn" msprop:Generator_UserColumnName="ScienceID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>

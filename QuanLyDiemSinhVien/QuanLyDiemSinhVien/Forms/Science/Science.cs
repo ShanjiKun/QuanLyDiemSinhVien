@@ -12,15 +12,32 @@ using DevExpress.XtraBars;
 using QuanLyDiemSinhVien.Forms.Science.Classes;
 using QuanLyDiemSinhVien.Models.User;
 
+using QuanLyDiemSinhVien.Forms.Base;
 using QuanLyDiemSinhVien.Forms.Science.Student;
 using QuanLyDiemSinhVien.Forms.Science.Teacher;
 using QuanLyDiemSinhVien.Forms.Science.Subject;
 using QuanLyDiemSinhVien.Forms.Science.CreditClasses;
+using QuanLyDiemSinhVien.Forms.Science.CreditClassDetail;
 
 namespace QuanLyDiemSinhVien.Forms.Science
 {
     public partial class FormScience : DevExpress.XtraBars.Ribbon.RibbonForm
     {
+        public enum BarButtonType
+        {
+            Add,
+            Edit,
+            Save,
+            Undo,
+            Delete,
+            Refresh
+        }
+
+        public enum NavigationForm
+        {
+            CreditClassDetail
+        }
+
         public FormScience()
         {
             InitializeComponent();
@@ -36,6 +53,94 @@ namespace QuanLyDiemSinhVien.Forms.Science
             string name = UserProfile.sharedInstance().name;
             string role = UserProfile.sharedInstance().role;
             BarBottom.Caption = userID + " - " + name + " - " + role;
+
+            //  Disabal buttons
+            disableButtons();
+        }
+
+        //  MARK: Public methods
+        public void navigateToForm(NavigationForm type, object data)
+        {
+            switch (type)
+            {
+                case NavigationForm.CreditClassDetail:
+                    {
+                        showCreditClassDetail(data);
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+
+        public void disableButtons()
+        {
+            btnAdd.Enabled = false;
+            btnEdit.Enabled = false;
+            btnSave.Enabled = false;
+            btnUndo.Enabled = false;
+            btnDelete.Enabled = false;
+            btnRefresh.Enabled = false;
+        }
+
+        public void enableButtons(List<BarButtonType> buttonTypes)
+        {
+            foreach (BarButtonType btnType in buttonTypes)
+            {
+                switch(btnType)
+                {
+                    case BarButtonType.Add:
+                        {
+                            btnAdd.Enabled = true;
+                        }
+                        break;
+                    case BarButtonType.Edit:
+                        {
+                            btnEdit.Enabled = true;
+                        }
+                        break;
+                    case BarButtonType.Save:
+                        {
+                            btnSave.Enabled = true;
+                        }
+                        break;
+                    case BarButtonType.Undo:
+                        {
+                            btnUndo.Enabled = true;
+                        }
+                        break;
+                    case BarButtonType.Delete:
+                        {
+                            btnDelete.Enabled = true;
+                        }
+                        break;
+                    case BarButtonType.Refresh:
+                        {
+                            btnRefresh.Enabled = true;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        //  MARK: Private method
+        //  Show credit class detail form
+        void showCreditClassDetail(object data)
+        {
+            showCreditClassDetail();
+            BaseForm baseForm = this.ActiveMdiChild as BaseForm;
+            if (baseForm != null)
+            {
+                baseForm.loadWithData(data);
+            }
+        }
+
+        void showCreditClassDetail()
+        {
+            CreditClassDetail.CreditClassDetail creditClassDetail = new CreditClassDetail.CreditClassDetail();
+            showForm(creditClassDetail);
         }
 
         //  MARK: Actions
@@ -70,35 +175,64 @@ namespace QuanLyDiemSinhVien.Forms.Science
             showForm(creditClasses);
         }
 
+        private void onCreditClassDetail(object sender, ItemClickEventArgs e)
+        {
+            showCreditClassDetail();
+        }
+
         //  Selecting Features
         private void onAdd(object sender, ItemClickEventArgs e)
         {
-
+            BaseForm baseForm = this.ActiveMdiChild as BaseForm;
+            if (baseForm != null)
+            {
+                baseForm.onAdd();
+            }
         }
 
         private void onEdit(object sender, ItemClickEventArgs e)
         {
-
+            BaseForm baseForm = this.ActiveMdiChild as BaseForm;
+            if (baseForm != null)
+            {
+                baseForm.onEdit();
+            }
         }
 
         private void onSave(object sender, ItemClickEventArgs e)
         {
-
+            BaseForm baseForm = this.ActiveMdiChild as BaseForm;
+            if (baseForm != null)
+            {
+                baseForm.onSave();
+            }
         }
 
         private void onUndo(object sender, ItemClickEventArgs e)
         {
-
+            BaseForm baseForm = this.ActiveMdiChild as BaseForm;
+            if (baseForm != null)
+            {
+                baseForm.onUndo();
+            }
         }
 
         private void onDelete(object sender, ItemClickEventArgs e)
         {
-
+            BaseForm baseForm = this.ActiveMdiChild as BaseForm;
+            if (baseForm != null)
+            {
+                baseForm.onDelete();
+            }
         }
 
         private void onRefresh(object sender, ItemClickEventArgs e)
         {
-
+            BaseForm baseForm = this.ActiveMdiChild as BaseForm;
+            if (baseForm != null)
+            {
+                baseForm.onRefresh();
+            }
         }
 
         //  MARK: Helpers

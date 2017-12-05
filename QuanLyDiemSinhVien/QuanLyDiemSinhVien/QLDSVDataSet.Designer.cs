@@ -283,6 +283,8 @@ namespace QuanLyDiemSinhVien {
             
             private global::System.Data.DataColumn columnServerName;
             
+            private global::System.Data.DataColumn columnScienceID;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public GetSubscriptionsDataTable() {
@@ -334,6 +336,14 @@ namespace QuanLyDiemSinhVien {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ScienceIDColumn {
+                get {
+                    return this.columnScienceID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -369,11 +379,12 @@ namespace QuanLyDiemSinhVien {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public GetSubscriptionsRow AddGetSubscriptionsRow(string Name, string ServerName) {
+            public GetSubscriptionsRow AddGetSubscriptionsRow(string Name, string ServerName, string ScienceID) {
                 GetSubscriptionsRow rowGetSubscriptionsRow = ((GetSubscriptionsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Name,
-                        ServerName};
+                        ServerName,
+                        ScienceID};
                 rowGetSubscriptionsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowGetSubscriptionsRow);
                 return rowGetSubscriptionsRow;
@@ -398,6 +409,7 @@ namespace QuanLyDiemSinhVien {
             internal void InitVars() {
                 this.columnName = base.Columns["Name"];
                 this.columnServerName = base.Columns["ServerName"];
+                this.columnScienceID = base.Columns["ScienceID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -407,9 +419,12 @@ namespace QuanLyDiemSinhVien {
                 base.Columns.Add(this.columnName);
                 this.columnServerName = new global::System.Data.DataColumn("ServerName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnServerName);
+                this.columnScienceID = new global::System.Data.DataColumn("ScienceID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnScienceID);
                 this.columnName.AllowDBNull = false;
                 this.columnName.MaxLength = 128;
                 this.columnServerName.MaxLength = 128;
+                this.columnScienceID.MaxLength = 255;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -579,6 +594,22 @@ namespace QuanLyDiemSinhVien {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ScienceID {
+                get {
+                    try {
+                        return ((string)(this[this.tableGetSubscriptions.ScienceIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ScienceID\' in table \'GetSubscriptions\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGetSubscriptions.ScienceIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsServerNameNull() {
                 return this.IsNull(this.tableGetSubscriptions.ServerNameColumn);
             }
@@ -587,6 +618,18 @@ namespace QuanLyDiemSinhVien {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetServerNameNull() {
                 this[this.tableGetSubscriptions.ServerNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsScienceIDNull() {
+                return this.IsNull(this.tableGetSubscriptions.ScienceIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetScienceIDNull() {
+                this[this.tableGetSubscriptions.ScienceIDColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -751,6 +794,7 @@ namespace QuanLyDiemSinhVien.QLDSVDataSetTableAdapters {
             tableMapping.DataSetTable = "GetSubscriptions";
             tableMapping.ColumnMappings.Add("Name", "Name");
             tableMapping.ColumnMappings.Add("ServerName", "ServerName");
+            tableMapping.ColumnMappings.Add("ScienceID", "ScienceID");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -767,7 +811,7 @@ namespace QuanLyDiemSinhVien.QLDSVDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Name, ServerName FROM dbo.GetSubscriptions";
+            this._commandCollection[0].CommandText = "SELECT Name, ServerName, ScienceID FROM GetSubscriptions";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

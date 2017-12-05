@@ -55,6 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Base\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Login\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +69,12 @@
     </Compile>
     <Compile Include="Forms\Science\Classes\Classes.Designer.cs">
       <DependentUpon>Classes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Science\CreditClassDetail\CreditClassDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Science\CreditClassDetail\CreditClassDetail.Designer.cs">
+      <DependentUpon>CreditClassDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Science\CreditClasses\CreditClasses.cs">
       <SubType>Form</SubType>
@@ -97,6 +106,8 @@
     <Compile Include="Forms\Science\Teacher\Teacher.Designer.cs">
       <DependentUpon>Teacher.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreditClassDetail\CreditClassDetailModel.cs" />
+    <Compile Include="Models\CreditClass\CreditClassModel.cs" />
     <Compile Include="Models\User\UserProfile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Science\Classes\Classes.resx">
       <DependentUpon>Classes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Science\CreditClassDetail\CreditClassDetail.resx">
+      <DependentUpon>CreditClassDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Science\CreditClasses\CreditClasses.resx">
       <DependentUpon>CreditClasses.cs</DependentUpon>

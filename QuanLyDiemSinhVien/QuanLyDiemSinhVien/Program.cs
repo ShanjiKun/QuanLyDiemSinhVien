@@ -6,6 +6,7 @@ using DevExpress.UserSkins;
 using DevExpress.Skins;
 using DevExpress.LookAndFeel;
 using QuanLyDiemSinhVien.Forms.Login;
+using QuanLyDiemSinhVien.Forms.Science;
 
 namespace QuanLyDiemSinhVien
 {
@@ -14,6 +15,10 @@ namespace QuanLyDiemSinhVien
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        /// 
+
+        public static FormScience formScience = null;
+
         [STAThread]
         static void Main()
         {

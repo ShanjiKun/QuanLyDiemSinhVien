@@ -46,6 +46,14 @@ namespace QuanLyDiemSinhVien.Forms.Login
             }
         }
 
+        void loginSuccess()
+        {
+            FormScience frScience = new FormScience();
+            frScience.Show();
+            Program.formScience = frScience;
+            this.Hide();
+        }
+
         //  Combobox Callback
         private void onSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -56,6 +64,10 @@ namespace QuanLyDiemSinhVien.Forms.Login
         //  Btn Login Callback
         private void onLogin(object sender, EventArgs e)
         {
+            //  Getting Science ID
+            getScienceID();
+
+            //  Processing login
             string server = cbServer.SelectedValue.ToString();
             string username = tbUserName.Text;
             string password = tbPassword.Text;
@@ -68,13 +80,18 @@ namespace QuanLyDiemSinhVien.Forms.Login
             };
 
             SqlClient.sharedInstance().login(param, () => {
-                                                        FormScience frScience = new FormScience();
-                                                        frScience.Show();
-                                                        this.Hide();
+                                                        loginSuccess();
                                                     },
                                                     error => {
                                                         MessageBox.Show(error);
                                                     });
+        }
+
+        void getScienceID()
+        {
+            string servername = cbServer.Text;
+            string[] elems = servername.Split("_"[0]);
+            SqlClient.sharedInstance().scienceID = elems[1];
         }
     }
 }

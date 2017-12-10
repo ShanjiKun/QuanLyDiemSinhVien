@@ -79,6 +79,10 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
                 }
                 else
                 {
+                    //  Create seleted item from registered
+                    createSeletedFromRegistered();
+
+                    //  Begin
                     loadDataSuccess();
                 }
             }, errorMessage => {
@@ -449,6 +453,36 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
             }
         }
 
+        bool canRegistration(ValidCreditClassModel newModel)
+        {
+            foreach (ValidCreditClassModel model in itemsSelected)
+            {
+                foreach (CreditClassDetailModel detail in model.details)
+                {
+                    foreach (CreditClassDetailModel newModelDetail in newModel.details)
+                    {
+                        if (detail.Thu == newModelDetail.Thu && detail.Buoi == newModelDetail.Buoi)
+                        {
+                            DateTime newBeginDate = dateFromStringYYYYMMDD(newModelDetail.NgayBatDau);
+                            DateTime newEndDate = dateFromStringYYYYMMDD(newModelDetail.NgayKetThuc);
+
+                            DateTime beginDate = dateFromStringYYYYMMDD(detail.NgayBatDau);
+                            DateTime endDate = dateFromStringYYYYMMDD(detail.NgayKetThuc);
+
+                            if (!((compareDates(newBeginDate, beginDate) < 0 && (compareDates(newEndDate, beginDate) < 0))
+                                    || compareDates(newBeginDate, endDate) > 0 && compareDates(newEndDate, endDate) > 0))
+                            {
+                                MessageBox.Show("Trùng buổi với Lớp tín chỉ " + model.creditID.ToString());
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return true;
+        }
+
         void handleRadioCheckedChanged(RadioButton radio)
         {
             if (radio.Checked)
@@ -457,12 +491,19 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
                 {
                     string indexStr = radio.Name.Split("_"[0])[1];
                     int index = Convert.ToInt32(indexStr);
-                    itemsSelected.Add(items[index]);
-                    showCreditClassSelected();
+                    if (canRegistration(items[index]))
+                    {
+                        itemsSelected.Add(items[index]);
+                        showCreditClassSelected();
+                    }
+                    else
+                    {
+                        radio.Checked = false;
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Add Credit - Cannot get index from radio " + radio.Name + ", desc: \n\n " + ex.Message);
+                    MessageBox.Show("Add Credit - Radio " + radio.Name + ", desc: \n\n " + ex.Message);
                 }
             }
             else
@@ -476,7 +517,7 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Remove Credit - Cannot get index from radio " + radio.Name + ", desc: \n\n " + ex.Message);
+                    MessageBox.Show("Remove Credit - Radio " + radio.Name + ", desc: \n\n " + ex.Message);
                 }
             }
         }
@@ -504,6 +545,7 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
             if (radio != null)
             {
                 radio.Checked = !isCheck;
+                handleRadioCheckedChanged(radio);
             }
         }
 
@@ -512,11 +554,34 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
             RadioButton radio = sender as RadioButton;
             if (radio != null)
             {
-                handleRadioCheckedChanged(radio);
             }
         }
 
         //  MARK: Helpers
+        void createSeletedFromRegistered()
+        {
+            List<int> arr = cloneRegisterd();
+            foreach (ValidCreditClassModel item in items)
+            {
+                for (int i = 0; i < arr.Count; i++)
+                {
+                    if (item.creditID == arr[i])
+                    {
+                        arr.RemoveAt(i);
+                        itemsSelected.Add(item);
+                        break;
+                    }
+                }
+            }
+        }
+        int compareDates(DateTime date1, DateTime date2)
+        {
+            return DateTime.Compare(date1, date2);
+        }
+        DateTime dateFromStringYYYYMMDD(string dateString)
+        {
+            return DateTime.ParseExact(dateString, "yyyy/MM/dd", System.Globalization.CultureInfo.InvariantCulture);
+        }
         bool isRegisteredCreditClass(int creditID)
         {
             foreach (int id in registereds)

@@ -60,8 +60,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.dpExam = new System.Windows.Forms.DateTimePicker();
             this.panelAdding = new System.Windows.Forms.Panel();
-            this.btnAdd = new System.Windows.Forms.Button();
             this.btnAddDetail = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.qLDSVDataSet_Tables)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lOP_TCBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCreditClass)).BeginInit();
@@ -167,6 +167,7 @@
             this.label1.Size = new System.Drawing.Size(28, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Môn";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -341,16 +342,6 @@
             this.panelAdding.Size = new System.Drawing.Size(797, 310);
             this.panelAdding.TabIndex = 5;
             // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(20, 273);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 20;
-            this.btnAdd.Text = "Thêm";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.onAdd);
-            // 
             // btnAddDetail
             // 
             this.btnAddDetail.Location = new System.Drawing.Point(115, 273);
@@ -360,6 +351,16 @@
             this.btnAddDetail.Text = "Thêm chi tiết >>";
             this.btnAddDetail.UseVisualStyleBackColor = true;
             this.btnAddDetail.Click += new System.EventHandler(this.onAddDetail);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(20, 273);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 20;
+            this.btnAdd.Text = "Thêm";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.onAdd);
             // 
             // CreditClasses
             // 

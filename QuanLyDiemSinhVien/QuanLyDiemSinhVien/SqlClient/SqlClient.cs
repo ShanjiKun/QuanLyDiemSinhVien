@@ -158,12 +158,12 @@ namespace QuanLyDiemSinhVien.Sql
                 foreach (Dictionary<string, object> item in items)
                 {
                     CreditClassDetailModel model = new CreditClassDetailModel();
-                    model.MaLTC = item["MaLTC"] as string;
+                    model.MaLTC = ((int)item["MaLTC"]).ToString();
                     model.MaPh = item["MaPh"] as string;
                     model.Thu = item["Thu"] as string;
                     model.Buoi = item["Buoi"] as string;
-                    model.NgayBatDau = item["NgayBatDau"] as string;
-                    model.NgayKetThuc = item["NgayKetThuc"] as string;
+                    model.NgayBatDau = ((DateTime)item["NgayBatDau"]).ToString();
+                    model.NgayKetThuc = ((DateTime)item["NgayKetThuc"]).ToString();
 
                     listCreditClassDetail.Add(model);
                 }

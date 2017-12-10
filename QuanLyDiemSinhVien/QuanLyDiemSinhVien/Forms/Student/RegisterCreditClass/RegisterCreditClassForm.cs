@@ -48,24 +48,46 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
             this.Controls.Add(pannel);
         }
 
+        List<ValidCreditClassModel> items;
+        List<ValidCreditClassModel> itemsSelected = new List<ValidCreditClassModel>();
         void loadData()
         {
             SqlClient.sharedInstance().getValidCreditClass( validCreditClasses => {
-                List<ValidCreditClassModel> items = validCreditClasses as List<ValidCreditClassModel>;
-                showCreditClassDetail(items);
+                items = validCreditClasses as List<ValidCreditClassModel>;
+                loadDataSuccess();
             }, errorMessage => {
                 MessageBox.Show("Get Valid Credit Class failure, lỗi: \n\n" + errorMessage);
             });
         }
-
-        Panel parenPanel = null;
-        void showCreditClassDetail(List<ValidCreditClassModel> items)
+        
+        int CurrentWidth = 1000;
+        int currentPanelHeight = 0;
+        void loadDataSuccess()
         {
-            //  Init Parent panel
-            parenPanel = createPanel(4, 48, 950 + 32, 200);
-
             //  Render Headers
-            renderHeader();
+            this.Controls.Add(renderHeader(4, 4));
+
+            //  Show Credit class
+            showCreditClassDetail();
+
+            //  Render Headers For Selected
+            this.Controls.Add(renderHeader(54, 304, false));
+
+            //  Show Credit class Selected
+            showCreditClassSelected();
+        }
+        void showCreditClassDetail()
+        {
+            //  Remove all child controls
+            currentPanelHeight = 0;
+            pnRegister.Controls.Clear();
+
+            //  Handles
+            if(items == null)
+            {
+                MessageBox.Show("LopTC error, lỗi: \n\n null");
+                return;
+            }
 
             foreach (ValidCreditClassModel item in items)
             {
@@ -76,20 +98,51 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
                 else
                 {
                     //  Render Rows
-                    renderRows(item, items.IndexOf(item));
+                    pnRegister.Controls.Add(renderRows(item, items.IndexOf(item)));
                 }
             }
-
-            //  
-            this.Controls.Add(parenPanel);
         }
 
-        int currentPanelHeight = 0;
-        void renderHeader()
+        void showCreditClassSelected()
+        {
+            //  Remove all child controls
+            currentPanelHeight = 0;
+            pnSelected.Controls.Clear();
+
+            //  Handles
+            foreach (ValidCreditClassModel item in itemsSelected)
+            {
+                if (item.details == null || item.details.Count == 0)
+                {
+                    MessageBox.Show("{0} không có CT_LOP_TC", item.creditID.ToString());
+                }
+                else
+                {
+                    //  Render Rows
+                    pnSelected.Controls.Add(renderRows(item, items.IndexOf(item), false));
+                }
+            }
+        }
+
+        //  MARK: Renders
+        Panel renderHeader(int x, int y)
+        {
+            return renderHeader(x, y, true);
+        }
+        Panel renderHeader(int x, int y, bool isRenderRadio)
         {
             //  Define columns
             List<Object> columns = new List<object>();
             Dictionary<string, object> col;
+
+            if (isRenderRadio)
+            {
+                col = new Dictionary<string, object>();
+                col.Add("name", "SelectHeader");
+                col.Add("text", "");
+                col.Add("width", 50);
+                columns.Add(col);
+            }
 
             col = new Dictionary<string, object>();
             col.Add("name", "CreditIDHeader");
@@ -152,14 +205,19 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
             columns.Add(col);
 
             //  Panel
-            int panelHeight = 44, panelWidth = 950;
+            int panelHeight = 44, panelWidth = isRenderRadio ? CurrentWidth : CurrentWidth - 50;
 
-            Panel panel = createPanel(5, currentPanelHeight + 4, panelWidth + 4, panelHeight + 2);
-
+            Panel panel = createPanel(x, y, panelWidth + 2, panelHeight + 2);
             renderColumns(columns, panelHeight, 0, 0, panel);
-            this.Controls.Add(panel);
+
+            return panel;
         }
-        void renderRows(ValidCreditClassModel item, int index)
+
+        Panel renderRows(ValidCreditClassModel item, int index)
+        {
+            return renderRows(item, index, true);
+        }
+        Panel renderRows(ValidCreditClassModel item, int index, bool isRenderRadio)
         {
             //  Define columns
             List<Object> columns = new List<object>();
@@ -234,15 +292,27 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
             }
 
             //  Panel
-            int panelHeight = 0, panelWidth = 950;
+            int panelHeight = 0, panelWidth = isRenderRadio ? CurrentWidth : CurrentWidth - 49;
             int rowHeight = 44;
             panelHeight += item.details.Count * rowHeight; // 44 per row
 
-            Panel panel = createPanel(0, currentPanelHeight, panelWidth + 4, panelHeight + 4);
+            Panel panel = createPanel(0, currentPanelHeight, panelWidth + 1, panelHeight + 2);
             currentPanelHeight += panelHeight;
 
-            //  Render Credit Class
             int currentX = 0;
+
+            //  Render Radio
+            if (isRenderRadio)
+            {
+                int rX = currentX + 15;
+                int rW = 20;
+                string rName = string.Format("Radio_{0}", index);
+                RadioButton radio = createRadio(rX, 0, panelHeight, rW, rName);
+                currentX += 49;
+                panel.Controls.Add(radio);
+            }
+
+            //  Render Credit Class
             currentX = renderColumns(columns, panelHeight, currentX, 0, panel);
 
             //  Render details
@@ -253,7 +323,7 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
                 y += rowHeight;
             }
 
-            parenPanel.Controls.Add(panel);
+            return panel;
         }
 
         int renderColumns(List<object> columns, int rowHeight, int curX, int curY, Panel panel)
@@ -278,6 +348,62 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
             }
 
             return currentX;
+        }
+
+        //  MARK: Actions
+        bool isCheck = false;
+        void radioButton_OnMouseDown(object sender, MouseEventArgs e)
+        {
+            RadioButton radio = sender as RadioButton;
+            if (radio != null)
+            {
+                isCheck = radio.Checked;
+            }
+        }
+
+        void radioButton_OnMouseUp(object sender, MouseEventArgs e)
+        {
+            RadioButton radio = sender as RadioButton;
+            if (radio != null)
+            {
+                radio.Checked = !isCheck;
+            }
+        }
+
+        void radioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton radio = sender as RadioButton;
+            if (radio != null)
+            {
+                if (radio.Checked)
+                {
+                    try
+                    {
+                        string indexStr = radio.Name.Split("_"[0])[1];
+                        int index = Convert.ToInt32(indexStr);
+                        itemsSelected.Add(items[index]);
+                        showCreditClassSelected();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Add Credit - Cannot get index from radio " + radio.Name + ", desc: \n\n " + ex.Message);
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        string indexStr = radio.Name.Split("_"[0])[1];
+                        int index = Convert.ToInt32(indexStr);
+                        itemsSelected.Remove(items[index]);
+                        showCreditClassSelected();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Remove Credit - Cannot get index from radio " + radio.Name + ", desc: \n\n " + ex.Message);
+                    }
+                }
+            }
         }
 
         //  MARK: Helpers
@@ -313,6 +439,20 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
             label.BorderStyle = BorderStyle.FixedSingle;
             label.TextAlign = ContentAlignment.MiddleCenter;
             return label;
+        }
+
+        RadioButton createRadio(int x, int y, int h, int w, string name)
+        {
+            RadioButton radio = new RadioButton();
+            radio.Location = new Point(x, y);
+            radio.Height = h;
+            radio.Width = w;
+            radio.Name = name;
+            radio.TextAlign = ContentAlignment.MiddleCenter;
+            radio.MouseDown += new MouseEventHandler(radioButton_OnMouseDown);
+            radio.MouseUp += new MouseEventHandler(radioButton_OnMouseUp);
+            radio.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
+            return radio;
         }
     }
 }

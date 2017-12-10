@@ -21,23 +21,8 @@ using QuanLyDiemSinhVien.Forms.Science.CreditClassDetail;
 
 namespace QuanLyDiemSinhVien.Forms.Science
 {
-    public partial class FormScience : DevExpress.XtraBars.Ribbon.RibbonForm
+    public partial class FormScience : BaseRibbonForm
     {
-        public enum BarButtonType
-        {
-            Add,
-            Edit,
-            Save,
-            Undo,
-            Delete,
-            Refresh
-        }
-
-        public enum NavigationForm
-        {
-            CreditClassDetail
-        }
-
         public FormScience()
         {
             InitializeComponent();
@@ -59,7 +44,7 @@ namespace QuanLyDiemSinhVien.Forms.Science
         }
 
         //  MARK: Public methods
-        public void navigateToForm(NavigationForm type, object data)
+        public override void navigateToForm(NavigationForm type, object data)
         {
             switch (type)
             {
@@ -73,7 +58,7 @@ namespace QuanLyDiemSinhVien.Forms.Science
             }
         }
 
-        public void disableButtons()
+        public override void disableButtons()
         {
             btnAdd.Enabled = false;
             btnEdit.Enabled = false;
@@ -83,7 +68,7 @@ namespace QuanLyDiemSinhVien.Forms.Science
             btnRefresh.Enabled = false;
         }
 
-        public void enableButtons(List<BarButtonType> buttonTypes)
+        public override void enableButtons(List<BarButtonType> buttonTypes)
         {
             foreach (BarButtonType btnType in buttonTypes)
             {
@@ -232,42 +217,6 @@ namespace QuanLyDiemSinhVien.Forms.Science
             if (baseForm != null)
             {
                 baseForm.onRefresh();
-            }
-        }
-
-        //  MARK: Helpers
-        void showForm(Form form)
-        {
-            Console.WriteLine(form.Name);
-            if (isExistForm(form.Name))
-            {
-                activeForm(form.Name);
-            }
-            else
-            {
-                form.MdiParent = this;
-                form.Show();
-            }
-        }
-
-        bool isExistForm(string formName)
-        {
-            foreach (Form form in this.MdiChildren)
-            {
-                if (form.Name == formName) return true;
-            }
-            return false;
-        }
-
-        void activeForm(string formName)
-        {
-            foreach (Form form in this.MdiChildren)
-            {
-                if (form.Name == formName)
-                {
-                    form.Activate();
-                    break;
-                }
             }
         }
     }

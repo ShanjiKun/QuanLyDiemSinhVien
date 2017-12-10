@@ -104,7 +104,7 @@
             this.tbUserName.Name = "tbUserName";
             this.tbUserName.Size = new System.Drawing.Size(121, 21);
             this.tbUserName.TabIndex = 4;
-            this.tbUserName.Text = "linhdan";
+            this.tbUserName.Text = "dieunhi";
             // 
             // label4
             // 

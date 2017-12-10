@@ -11,6 +11,8 @@ using DevExpress.XtraEditors;
 using QuanLyDiemSinhVien.Sql;
 using QuanLyDiemSinhVien.Models.User;
 using QuanLyDiemSinhVien.Forms.Science;
+using QuanLyDiemSinhVien.Forms.Student;
+using QuanLyDiemSinhVien.Forms.Base;
 
 namespace QuanLyDiemSinhVien.Forms.Login
 {
@@ -48,10 +50,38 @@ namespace QuanLyDiemSinhVien.Forms.Login
 
         void loginSuccess()
         {
-            FormScience frScience = new FormScience();
-            frScience.Show();
-            Program.formScience = frScience;
-            this.Hide();
+            string role = UserProfile.sharedInstance().role;
+            BaseRibbonForm ribbonForm = null;
+            switch (role)
+            {
+                case "PGV":
+                    {
+                        ribbonForm = new FormScience();
+                        break;
+                    }
+                case "KHOA":
+                    {
+                        
+                        break;
+                    }
+                case "SINHVIEN":
+                    {
+                        ribbonForm = new StudentForm();
+                        break;
+                    }
+                default:
+                    {
+                        MessageBox.Show("Nhóm {0} không tồn tại", role);
+                        break;
+                    }
+            }
+
+            if (ribbonForm != null)
+            {
+                ribbonForm.Show();
+                Program.ribbonForm = ribbonForm;
+                this.Hide();
+            }
         }
 
         //  Combobox Callback

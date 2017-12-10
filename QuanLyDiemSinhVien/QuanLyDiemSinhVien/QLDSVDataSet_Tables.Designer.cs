@@ -1621,6 +1621,8 @@ namespace QuanLyDiemSinhVien {
             
             private global::System.Data.DataColumn columnSoTTH;
             
+            private global::System.Data.DataColumn columnSoTC;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public MONDataTable() {
@@ -1688,6 +1690,14 @@ namespace QuanLyDiemSinhVien {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SoTCColumn {
+                get {
+                    return this.columnSoTC;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1723,13 +1733,14 @@ namespace QuanLyDiemSinhVien {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public MONRow AddMONRow(string MaMon, string Ten, int SoTLT, int SoTTH) {
+            public MONRow AddMONRow(string MaMon, string Ten, int SoTLT, int SoTTH, int SoTC) {
                 MONRow rowMONRow = ((MONRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         MaMon,
                         Ten,
                         SoTLT,
-                        SoTTH};
+                        SoTTH,
+                        SoTC};
                 rowMONRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMONRow);
                 return rowMONRow;
@@ -1763,6 +1774,7 @@ namespace QuanLyDiemSinhVien {
                 this.columnTen = base.Columns["Ten"];
                 this.columnSoTLT = base.Columns["SoTLT"];
                 this.columnSoTTH = base.Columns["SoTTH"];
+                this.columnSoTC = base.Columns["SoTC"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1776,6 +1788,8 @@ namespace QuanLyDiemSinhVien {
                 base.Columns.Add(this.columnSoTLT);
                 this.columnSoTTH = new global::System.Data.DataColumn("SoTTH", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSoTTH);
+                this.columnSoTC = new global::System.Data.DataColumn("SoTC", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSoTC);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnMaMon}, true));
                 this.columnMaMon.AllowDBNull = false;
@@ -1784,6 +1798,7 @@ namespace QuanLyDiemSinhVien {
                 this.columnTen.AllowDBNull = false;
                 this.columnTen.MaxLength = 100;
                 this.columnSoTLT.AllowDBNull = false;
+                this.columnSoTC.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3927,6 +3942,17 @@ namespace QuanLyDiemSinhVien {
                 }
                 set {
                     this[this.tableMON.SoTTHColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int SoTC {
+                get {
+                    return ((int)(this[this.tableMON.SoTCColumn]));
+                }
+                set {
+                    this[this.tableMON.SoTCColumn] = value;
                 }
             }
             
@@ -6169,42 +6195,47 @@ SELECT MaGV, HoTen, HocVi, HocHam, ChuyenMon, MaKh FROM GIANG_VIEN WHERE (MaGV =
             tableMapping.ColumnMappings.Add("Ten", "Ten");
             tableMapping.ColumnMappings.Add("SoTLT", "SoTLT");
             tableMapping.ColumnMappings.Add("SoTTH", "SoTTH");
+            tableMapping.ColumnMappings.Add("SoTC", "SoTC");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[MON] WHERE (([MaMon] = @Original_MaMon) AND ([Ten] = @Original" +
-                "_Ten) AND ([SoTLT] = @Original_SoTLT) AND ((@IsNull_SoTTH = 1 AND [SoTTH] IS NUL" +
-                "L) OR ([SoTTH] = @Original_SoTTH)))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [MON] WHERE (([MaMon] = @Original_MaMon) AND ([Ten] = @Original_Ten) " +
+                "AND ([SoTLT] = @Original_SoTLT) AND ((@IsNull_SoTTH = 1 AND [SoTTH] IS NULL) OR " +
+                "([SoTTH] = @Original_SoTTH)) AND ([SoTC] = @Original_SoTC))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_MaMon", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MaMon", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Ten", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ten", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_SoTLT", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SoTLT", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_SoTTH", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SoTTH", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_SoTTH", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SoTTH", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_SoTC", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SoTC", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MON] ([MaMon], [Ten], [SoTLT], [SoTTH]) VALUES (@MaMon, @Ten, " +
-                "@SoTLT, @SoTTH);\r\nSELECT MaMon, Ten, SoTLT, SoTTH FROM MON WHERE (MaMon = @MaMon" +
-                ")";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [MON] ([MaMon], [Ten], [SoTLT], [SoTTH], [SoTC]) VALUES (@MaMon, @Ten" +
+                ", @SoTLT, @SoTTH, @SoTC);\r\nSELECT MaMon, Ten, SoTLT, SoTTH, SoTC FROM MON WHERE " +
+                "(MaMon = @MaMon)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MaMon", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MaMon", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Ten", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ten", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SoTLT", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SoTLT", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SoTTH", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SoTTH", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SoTC", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SoTC", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[MON] SET [MaMon] = @MaMon, [Ten] = @Ten, [SoTLT] = @SoTLT, [SoTTH] = @SoTTH WHERE (([MaMon] = @Original_MaMon) AND ([Ten] = @Original_Ten) AND ([SoTLT] = @Original_SoTLT) AND ((@IsNull_SoTTH = 1 AND [SoTTH] IS NULL) OR ([SoTTH] = @Original_SoTTH)));
-SELECT MaMon, Ten, SoTLT, SoTTH FROM MON WHERE (MaMon = @MaMon)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [MON] SET [MaMon] = @MaMon, [Ten] = @Ten, [SoTLT] = @SoTLT, [SoTTH] = @SoTTH, [SoTC] = @SoTC WHERE (([MaMon] = @Original_MaMon) AND ([Ten] = @Original_Ten) AND ([SoTLT] = @Original_SoTLT) AND ((@IsNull_SoTTH = 1 AND [SoTTH] IS NULL) OR ([SoTTH] = @Original_SoTTH)) AND ([SoTC] = @Original_SoTC));
+SELECT MaMon, Ten, SoTLT, SoTTH, SoTC FROM MON WHERE (MaMon = @MaMon)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MaMon", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MaMon", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Ten", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ten", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SoTLT", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SoTLT", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SoTTH", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SoTTH", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SoTC", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SoTC", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_MaMon", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MaMon", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Ten", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Ten", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_SoTLT", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SoTLT", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_SoTTH", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SoTTH", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_SoTTH", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SoTTH", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_SoTC", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SoTC", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6220,7 +6251,7 @@ SELECT MaMon, Ten, SoTLT, SoTTH FROM MON WHERE (MaMon = @MaMon)";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT MaMon, Ten, SoTLT, SoTTH FROM dbo.MON";
+            this._commandCollection[0].CommandText = "SELECT MaMon, Ten, SoTLT, SoTTH, SoTC FROM MON";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -6281,7 +6312,7 @@ SELECT MaMon, Ten, SoTLT, SoTTH FROM MON WHERE (MaMon = @MaMon)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(string Original_MaMon, string Original_Ten, int Original_SoTLT, global::System.Nullable<int> Original_SoTTH) {
+        public virtual int Delete(string Original_MaMon, string Original_Ten, int Original_SoTLT, global::System.Nullable<int> Original_SoTTH, int Original_SoTC) {
             if ((Original_MaMon == null)) {
                 throw new global::System.ArgumentNullException("Original_MaMon");
             }
@@ -6303,6 +6334,7 @@ SELECT MaMon, Ten, SoTLT, SoTTH FROM MON WHERE (MaMon = @MaMon)";
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
+            this.Adapter.DeleteCommand.Parameters[5].Value = ((int)(Original_SoTC));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6323,7 +6355,7 @@ SELECT MaMon, Ten, SoTLT, SoTTH FROM MON WHERE (MaMon = @MaMon)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string MaMon, string Ten, int SoTLT, global::System.Nullable<int> SoTTH) {
+        public virtual int Insert(string MaMon, string Ten, int SoTLT, global::System.Nullable<int> SoTTH, int SoTC) {
             if ((MaMon == null)) {
                 throw new global::System.ArgumentNullException("MaMon");
             }
@@ -6343,6 +6375,7 @@ SELECT MaMon, Ten, SoTLT, SoTTH FROM MON WHERE (MaMon = @MaMon)";
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
+            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(SoTC));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6363,7 +6396,7 @@ SELECT MaMon, Ten, SoTLT, SoTTH FROM MON WHERE (MaMon = @MaMon)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string MaMon, string Ten, int SoTLT, global::System.Nullable<int> SoTTH, string Original_MaMon, string Original_Ten, int Original_SoTLT, global::System.Nullable<int> Original_SoTTH) {
+        public virtual int Update(string MaMon, string Ten, int SoTLT, global::System.Nullable<int> SoTTH, int SoTC, string Original_MaMon, string Original_Ten, int Original_SoTLT, global::System.Nullable<int> Original_SoTTH, int Original_SoTC) {
             if ((MaMon == null)) {
                 throw new global::System.ArgumentNullException("MaMon");
             }
@@ -6383,27 +6416,29 @@ SELECT MaMon, Ten, SoTLT, SoTTH FROM MON WHERE (MaMon = @MaMon)";
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(SoTC));
             if ((Original_MaMon == null)) {
                 throw new global::System.ArgumentNullException("Original_MaMon");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_MaMon));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_MaMon));
             }
             if ((Original_Ten == null)) {
                 throw new global::System.ArgumentNullException("Original_Ten");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_Ten));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_Ten));
             }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_SoTLT));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_SoTLT));
             if ((Original_SoTTH.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_SoTTH.Value));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_SoTTH.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_SoTC));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6424,8 +6459,8 @@ SELECT MaMon, Ten, SoTLT, SoTTH FROM MON WHERE (MaMon = @MaMon)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Ten, int SoTLT, global::System.Nullable<int> SoTTH, string Original_MaMon, string Original_Ten, int Original_SoTLT, global::System.Nullable<int> Original_SoTTH) {
-            return this.Update(Original_MaMon, Ten, SoTLT, SoTTH, Original_MaMon, Original_Ten, Original_SoTLT, Original_SoTTH);
+        public virtual int Update(string Ten, int SoTLT, global::System.Nullable<int> SoTTH, int SoTC, string Original_MaMon, string Original_Ten, int Original_SoTLT, global::System.Nullable<int> Original_SoTTH, int Original_SoTC) {
+            return this.Update(Original_MaMon, Ten, SoTLT, SoTTH, SoTC, Original_MaMon, Original_Ten, Original_SoTLT, Original_SoTTH, Original_SoTC);
         }
     }
     

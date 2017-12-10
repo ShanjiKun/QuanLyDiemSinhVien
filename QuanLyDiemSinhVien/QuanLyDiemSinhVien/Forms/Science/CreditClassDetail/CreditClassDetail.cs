@@ -119,11 +119,11 @@ namespace QuanLyDiemSinhVien.Forms.Science.CreditClassDetail
             //  Show button
             if (this.qLDSVDataSet_Tables.CT_LOP_TC.Rows.Count > 0)
             {
-                Program.formScience.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit });
+                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit });
             }
             else
             {
-                Program.formScience.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add });
+                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add });
             }
 
             //  Disable fields
@@ -141,7 +141,7 @@ namespace QuanLyDiemSinhVien.Forms.Science.CreditClassDetail
         void handleFormStateAdd()
         {
             //  Hide buttons
-            Program.formScience.disableButtons();
+            Program.ribbonForm.disableButtons();
 
             //  Disable fields
             cbCreditClasses.Enabled = true;

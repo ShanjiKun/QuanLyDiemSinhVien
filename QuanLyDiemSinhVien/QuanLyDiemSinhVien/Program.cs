@@ -6,7 +6,7 @@ using DevExpress.UserSkins;
 using DevExpress.Skins;
 using DevExpress.LookAndFeel;
 using QuanLyDiemSinhVien.Forms.Login;
-using QuanLyDiemSinhVien.Forms.Science;
+using QuanLyDiemSinhVien.Forms.Base;
 
 namespace QuanLyDiemSinhVien
 {
@@ -17,7 +17,7 @@ namespace QuanLyDiemSinhVien
         /// </summary>
         /// 
 
-        public static FormScience formScience = null;
+        public static BaseRibbonForm ribbonForm = null;
 
         [STAThread]
         static void Main()

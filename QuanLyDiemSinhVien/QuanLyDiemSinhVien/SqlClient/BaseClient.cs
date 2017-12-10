@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 namespace QuanLyDiemSinhVien.Sql
 {
     //  Delegates
-    public delegate void SuccessBlock(List<Object> response);
+    public delegate void SuccessBlock(Object response);
     public delegate void SuccessNonParamBlock();
     public delegate void FailureBlock(string error);
 

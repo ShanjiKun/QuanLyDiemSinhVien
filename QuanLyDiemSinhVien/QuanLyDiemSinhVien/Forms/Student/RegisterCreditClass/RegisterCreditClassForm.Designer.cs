@@ -72,6 +72,7 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Lưu";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.onSave);
             // 
             // RegisterCreditClassForm
             // 

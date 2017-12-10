@@ -50,16 +50,42 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
 
         List<ValidCreditClassModel> items;
         List<ValidCreditClassModel> itemsSelected = new List<ValidCreditClassModel>();
+        List<int> registereds = new List<int>();
+
         void loadData()
         {
             SqlClient.sharedInstance().getValidCreditClass( validCreditClasses => {
+
                 items = validCreditClasses as List<ValidCreditClassModel>;
-                loadDataSuccess();
+                //  Get Registered
+                getRegistered();
+
             }, errorMessage => {
                 MessageBox.Show("Get Valid Credit Class failure, lỗi: \n\n" + errorMessage);
             });
         }
-        
+        void getRegistered()
+        {
+            getRegistered(false);
+        }
+        void getRegistered(bool isReload)
+        {
+            SqlClient.sharedInstance().getRegistered(response => {
+                registereds = response as List<int>;
+                if (isReload)
+                {
+                    //  Show Credit class Selected
+                    showCreditClassSelected();
+                }
+                else
+                {
+                    loadDataSuccess();
+                }
+            }, errorMessage => {
+                MessageBox.Show("Get Registered failure, lỗi: \n\n" + errorMessage);
+            });
+        }
+
         int CurrentWidth = 1000;
         int currentPanelHeight = 0;
         void loadDataSuccess()
@@ -308,6 +334,7 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
                 int rW = 20;
                 string rName = string.Format("Radio_{0}", index);
                 RadioButton radio = createRadio(rX, 0, panelHeight, rW, rName);
+                radio.Checked = isRegisteredCreditClass(item.creditID);
                 currentX += 49;
                 panel.Controls.Add(radio);
             }
@@ -350,7 +377,117 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
             return currentX;
         }
 
+        //  MARK: Handle
+        void handleSave()
+        {
+            List<int> listAdding = new List<int>();
+            List<int> listDeleting = cloneRegisterd();
+
+            foreach (ValidCreditClassModel item in itemsSelected)
+            {
+                if (listDeleting.Count == 0)
+                {
+                    listAdding.Add(item.creditID);
+                }
+                else
+                {
+                    int i = 0;
+                    for (i = 0; i < listDeleting.Count; i++)
+                    {
+                        if (listDeleting[i] == item.creditID)
+                        {
+                            break;
+                        }
+                    }
+
+                    if (i < listDeleting.Count)
+                    {
+                        listDeleting.RemoveAt(i);
+                    }
+                    else
+                    {
+                        listAdding.Add(item.creditID);
+                    }
+                }
+            }
+
+            //  Handle Save
+            //  handle deteting
+            handleDeleteRegistration(listDeleting);
+
+            //  handle registration
+            handleRegistration(listAdding);
+
+            //  Reload registered
+            if (listAdding.Count > 0 || listDeleting.Count > 0)
+            {
+                getRegistered(true);
+            }
+        }
+
+        void handleRegistration(List<int> creditIDs)
+        {
+            foreach(int creditID in creditIDs)
+            {
+                SqlClient.sharedInstance().insertRegistration(creditID, () => {
+
+                }, errorMessage => {
+                    MessageBox.Show("Insert DANG_KY_MON_HOC id-"+ creditID +" failure, lỗi: \n\n " + errorMessage);
+                });
+            }
+        }
+
+        void handleDeleteRegistration(List<int> creditIDs)
+        {
+            foreach (int creditID in creditIDs)
+            {
+                SqlClient.sharedInstance().deleteRegistration(creditID, () => {
+
+                }, errorMessage => {
+                    MessageBox.Show("Delete DANG_KY_MON_HOC id-" + creditID + " failure, lỗi: \n\n " + errorMessage);
+                });
+            }
+        }
+
+        void handleRadioCheckedChanged(RadioButton radio)
+        {
+            if (radio.Checked)
+            {
+                try
+                {
+                    string indexStr = radio.Name.Split("_"[0])[1];
+                    int index = Convert.ToInt32(indexStr);
+                    itemsSelected.Add(items[index]);
+                    showCreditClassSelected();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Add Credit - Cannot get index from radio " + radio.Name + ", desc: \n\n " + ex.Message);
+                }
+            }
+            else
+            {
+                try
+                {
+                    string indexStr = radio.Name.Split("_"[0])[1];
+                    int index = Convert.ToInt32(indexStr);
+                    itemsSelected.Remove(items[index]);
+                    showCreditClassSelected();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Remove Credit - Cannot get index from radio " + radio.Name + ", desc: \n\n " + ex.Message);
+                }
+            }
+        }
+
         //  MARK: Actions
+        private void onSave(object sender, EventArgs e)
+        {
+            handleSave();
+        }
+
+        //  Radios
         bool isCheck = false;
         void radioButton_OnMouseDown(object sender, MouseEventArgs e)
         {
@@ -375,38 +512,31 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
             RadioButton radio = sender as RadioButton;
             if (radio != null)
             {
-                if (radio.Checked)
-                {
-                    try
-                    {
-                        string indexStr = radio.Name.Split("_"[0])[1];
-                        int index = Convert.ToInt32(indexStr);
-                        itemsSelected.Add(items[index]);
-                        showCreditClassSelected();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Add Credit - Cannot get index from radio " + radio.Name + ", desc: \n\n " + ex.Message);
-                    }
-                }
-                else
-                {
-                    try
-                    {
-                        string indexStr = radio.Name.Split("_"[0])[1];
-                        int index = Convert.ToInt32(indexStr);
-                        itemsSelected.Remove(items[index]);
-                        showCreditClassSelected();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Remove Credit - Cannot get index from radio " + radio.Name + ", desc: \n\n " + ex.Message);
-                    }
-                }
+                handleRadioCheckedChanged(radio);
             }
         }
 
         //  MARK: Helpers
+        bool isRegisteredCreditClass(int creditID)
+        {
+            foreach (int id in registereds)
+            {
+                if (id == creditID) return true;
+            }
+            return false;
+        }
+
+        List<int> cloneRegisterd()
+        {
+            List<int> newList = new List<int>();
+            foreach (int i in registereds)
+            {
+                newList.Add(i);
+            }
+
+            return newList;
+        }
+
         Panel createPanel(int x, int y, int width, int height)
         {
             Panel panel = new Panel();

@@ -35,6 +35,15 @@ namespace QuanLyDiemSinhVien.Sql
         //  Get valid Credit Class
         string SE_GET_CREDIT_CLASS_DETAIL = "SELECT * FROM CT_LOP_TC WHERE MaLTC = {0}";
 
+        //  Get Registered
+        string SE_GET_REGISTERED = "SELECT MaLTC FROM DANG_KY_MON_HOC WHERE MaSV = '{0}'";
+
+        //  Insert Registration
+        string SE_INSERT_REGISTRATION = "INSERT INTO DANG_KY_MON_HOC(MaSV, MaLTC) VALUES('{0}', {1})";
+
+        //  Delete Registraion
+        string SE_DELETE_REGISTRATION = "DELETE FROM DANG_KY_MON_HOC WHERE MaSV = '{0}' AND MaLTC={1}";
+
         //  MARK: Functions
         //  SingleTon setup
         public static SqlClient sharedInstance()
@@ -162,8 +171,11 @@ namespace QuanLyDiemSinhVien.Sql
                     model.MaPh = item["MaPh"] as string;
                     model.Thu = item["Thu"] as string;
                     model.Buoi = item["Buoi"] as string;
-                    model.NgayBatDau = ((DateTime)item["NgayBatDau"]).ToString();
-                    model.NgayKetThuc = ((DateTime)item["NgayKetThuc"]).ToString();
+
+                    DateTime dateBegin = ((DateTime)item["NgayBatDau"]);
+                    DateTime dateEnd = ((DateTime)item["NgayKetThuc"]);
+                    model.NgayBatDau = dateToYYYYMMDD(dateBegin);
+                    model.NgayKetThuc = dateToYYYYMMDD(dateEnd);
 
                     listCreditClassDetail.Add(model);
                 }
@@ -171,6 +183,63 @@ namespace QuanLyDiemSinhVien.Sql
             }, error => {
                 failure(error);
             });
+        }
+
+        //  Get Registered
+        public void getRegistered(SuccessBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            string sql = string.Format(SE_GET_REGISTERED, UserProfile.sharedInstance().userID);
+
+            //  Exec sql
+            execSql(sql, response => {
+
+                List<int> creditIDs = new List<int>();
+                List<Object> items = response as List<Object>;
+                foreach (Dictionary<string, object> item in items)
+                {
+                    creditIDs.Add((int)item["MaLTC"]);
+                }
+                success(creditIDs);
+            }, error => {
+                failure(error);
+            });
+        }
+
+        //  Insert registration
+        public void insertRegistration(int creditID, SuccessNonParamBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            string studentID = UserProfile.sharedInstance().userID;
+            string sql = string.Format(SE_INSERT_REGISTRATION, studentID, creditID);
+
+            // Exec sql
+            execSqlNoResponse(sql, () => {
+                success();
+            }, error => {
+                failure(error);
+            });
+        }
+
+        //  Delete registration
+        public void deleteRegistration(int creditID, SuccessNonParamBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            string studentID = UserProfile.sharedInstance().userID;
+            string sql = string.Format(SE_DELETE_REGISTRATION, studentID, creditID);
+
+            //  Exec sql
+            execSqlNoResponse(sql, () => {
+                success();
+            }, error => {
+                failure(error);
+            });
+        }
+
+        //  Utils
+        string dateToYYYYMMDD(DateTime date)
+        {
+            return string.Format("{0}/{1}/{2}", date.Year, date.Month, date.Day);
         }
     }
 }

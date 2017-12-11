@@ -50,6 +50,9 @@ namespace QuanLyDiemSinhVien.Sql
         //  Insert Class
         string SE_INSERT_CLASS = "INSERT INTO LOP(MaLop, Ten, MaKh) VALUES ('{0}', N'{1}', '{2}')";
 
+        //  Insert Teacher
+        string SE_INSERT_TEACHER = "INSERT INTO GIANG_VIEN(MaGV, HoTen, HocVi, HocHam, ChuyenMon, MaKh) VALUES('{0}', N'{1}', N'{2}', N'{3}', N'{4}', '{5}')";
+
         //  MARK: Functions
         //  SingleTon setup
         public static SqlClient sharedInstance()
@@ -257,10 +260,24 @@ namespace QuanLyDiemSinhVien.Sql
         }
 
         //  Insert class
-        public void insertClass(string classID, string name, string science, SuccessNonParamBlock success, FailureBlock failure)
+        public void insertClass(string classID, string name, SuccessNonParamBlock success, FailureBlock failure)
         {
             //  Init sql
-            string sql = string.Format(SE_INSERT_CLASS, classID, name, science);
+            string sql = string.Format(SE_INSERT_CLASS, classID, name, scienceID);
+
+            //  Exec sql
+            execSqlNoResponse(sql, () => {
+                success();
+            }, error => {
+                failure(error);
+            });
+        }
+
+        //  Insert Teacher
+        public void insertTeacher(string id, string name, string degree, string title, string professional, SuccessNonParamBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            string sql = string.Format(SE_INSERT_TEACHER, id, name, degree, title, professional, scienceID);
 
             //  Exec sql
             execSqlNoResponse(sql, () => {

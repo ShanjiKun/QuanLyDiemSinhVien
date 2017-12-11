@@ -111,13 +111,13 @@ namespace QuanLyDiemSinhVien.Forms.Science.Subject
             string practise = sePractise.Value.ToString();
             string credit = seCredit.Value.ToString();
 
-            if (id.Length < 0)
+            if (id.Length == 0)
             {
                 MessageBox.Show("Nhập mã môn");
                 return;
             }
 
-            if (name.Length < 0)
+            if (name.Length == 0)
             {
                 MessageBox.Show("Nhâp tên môn");
                 return;

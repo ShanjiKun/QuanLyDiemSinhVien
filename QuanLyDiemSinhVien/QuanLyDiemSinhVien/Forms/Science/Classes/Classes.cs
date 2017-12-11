@@ -102,21 +102,20 @@ namespace QuanLyDiemSinhVien.Forms.Science.Classes
         {
             string classID = teClass.Text;
             string name = teName.Text;
-            string science = SqlClient.sharedInstance().scienceID;
-            if (classID.Length < 0)
+            if (classID.Length == 0)
             {
                 MessageBox.Show("Nhập mã lớp");
                 return;
             }
 
-            if (name.Length < 0)
+            if (name.Length == 0)
             {
                 MessageBox.Show("Nhập tên lớp");
                 return;
             }
 
             //  Inserting
-            SqlClient.sharedInstance().insertClass(classID, name, science, ()=> {
+            SqlClient.sharedInstance().insertClass(classID, name, ()=> {
                 MessageBox.Show("Thêm lớp thành công!");
                 //  Change state view
                 changeFormStateTo(FormState.VIEW);

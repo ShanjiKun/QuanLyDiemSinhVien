@@ -34,10 +34,11 @@ namespace QuanLyDiemSinhVien.Forms.Science
             IsMdiContainer = true;
 
             //  Show user information
-            string userID = UserProfile.sharedInstance().userID;
-            string name = UserProfile.sharedInstance().name;
-            string role = UserProfile.sharedInstance().role;
-            BarBottom.Caption = userID + " - " + name + " - " + role;
+            string userID = " Mã: " + UserProfile.sharedInstance().userID;
+            string name = " Tên: " + UserProfile.sharedInstance().name;
+            string role = " Nhóm: " + UserProfile.sharedInstance().role;
+            string science = " Khoa: " + Sql.SqlClient.sharedInstance().scienceID;
+            BarBottom.Caption = userID + " - " + name + " - " + role + " - " + science;
 
             //  Disabal buttons
             disableButtons();

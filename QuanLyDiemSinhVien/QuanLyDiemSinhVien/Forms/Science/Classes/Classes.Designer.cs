@@ -37,17 +37,37 @@
             this.tableAdapterManager = new QuanLyDiemSinhVien.QLDSVDataSet_TablesTableAdapters.TableAdapterManager();
             this.lOPGridControl = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.maLopTextEdit = new DevExpress.XtraEditors.TextEdit();
-            this.tenTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.teClass = new DevExpress.XtraEditors.TextEdit();
+            this.teName = new DevExpress.XtraEditors.TextEdit();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             maLopLabel = new System.Windows.Forms.Label();
             tenLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.qLDSVDataSet_Tables)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lOPBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lOPGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maLopTextEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tenTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.teClass.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.teName.Properties)).BeginInit();
             this.SuspendLayout();
+            // 
+            // maLopLabel
+            // 
+            maLopLabel.AutoSize = true;
+            maLopLabel.Location = new System.Drawing.Point(67, 297);
+            maLopLabel.Name = "maLopLabel";
+            maLopLabel.Size = new System.Drawing.Size(46, 13);
+            maLopLabel.TabIndex = 1;
+            maLopLabel.Text = "Ma Lop:";
+            // 
+            // tenLabel
+            // 
+            tenLabel.AutoSize = true;
+            tenLabel.Location = new System.Drawing.Point(84, 323);
+            tenLabel.Name = "tenLabel";
+            tenLabel.Size = new System.Drawing.Size(29, 13);
+            tenLabel.TabIndex = 3;
+            tenLabel.Text = "Ten:";
             // 
             // qLDSVDataSet_Tables
             // 
@@ -73,6 +93,7 @@
             this.tableAdapterManager.LOPTableAdapter = this.lOPTableAdapter;
             this.tableAdapterManager.MONTableAdapter = null;
             this.tableAdapterManager.NIEN_KHOATableAdapter = null;
+            this.tableAdapterManager.PHONG_HOCTableAdapter = null;
             this.tableAdapterManager.SINH_VIENTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = QuanLyDiemSinhVien.QLDSVDataSet_TablesTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
@@ -81,10 +102,10 @@
             this.lOPGridControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lOPGridControl.DataSource = this.lOPBindingSource;
-            this.lOPGridControl.Location = new System.Drawing.Point(0, 0);
+            this.lOPGridControl.Location = new System.Drawing.Point(1, 1);
             this.lOPGridControl.MainView = this.gridView1;
             this.lOPGridControl.Name = "lOPGridControl";
-            this.lOPGridControl.Size = new System.Drawing.Size(877, 258);
+            this.lOPGridControl.Size = new System.Drawing.Size(898, 258);
             this.lOPGridControl.TabIndex = 1;
             this.lOPGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -95,49 +116,53 @@
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsDetail.DetailMode = DevExpress.XtraGrid.Views.Grid.DetailMode.Default;
             // 
-            // maLopLabel
+            // teClass
             // 
-            maLopLabel.AutoSize = true;
-            maLopLabel.Location = new System.Drawing.Point(54, 290);
-            maLopLabel.Name = "maLopLabel";
-            maLopLabel.Size = new System.Drawing.Size(46, 13);
-            maLopLabel.TabIndex = 1;
-            maLopLabel.Text = "Ma Lop:";
+            this.teClass.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.lOPBindingSource, "MaLop", true));
+            this.teClass.Location = new System.Drawing.Point(119, 294);
+            this.teClass.Name = "teClass";
+            this.teClass.Size = new System.Drawing.Size(100, 20);
+            this.teClass.TabIndex = 2;
             // 
-            // maLopTextEdit
+            // teName
             // 
-            this.maLopTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.lOPBindingSource, "MaLop", true));
-            this.maLopTextEdit.Location = new System.Drawing.Point(106, 287);
-            this.maLopTextEdit.Name = "maLopTextEdit";
-            this.maLopTextEdit.Size = new System.Drawing.Size(100, 20);
-            this.maLopTextEdit.TabIndex = 2;
+            this.teName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.lOPBindingSource, "Ten", true));
+            this.teName.Location = new System.Drawing.Point(119, 320);
+            this.teName.Name = "teName";
+            this.teName.Size = new System.Drawing.Size(100, 20);
+            this.teName.TabIndex = 4;
             // 
-            // tenLabel
+            // btnAdd
             // 
-            tenLabel.AutoSize = true;
-            tenLabel.Location = new System.Drawing.Point(71, 330);
-            tenLabel.Name = "tenLabel";
-            tenLabel.Size = new System.Drawing.Size(29, 13);
-            tenLabel.TabIndex = 3;
-            tenLabel.Text = "Ten:";
+            this.btnAdd.Location = new System.Drawing.Point(70, 367);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 8;
+            this.btnAdd.Text = "Them";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.onAdd);
             // 
-            // tenTextEdit
+            // btnCancel
             // 
-            this.tenTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.lOPBindingSource, "Ten", true));
-            this.tenTextEdit.Location = new System.Drawing.Point(106, 327);
-            this.tenTextEdit.Name = "tenTextEdit";
-            this.tenTextEdit.Size = new System.Drawing.Size(100, 20);
-            this.tenTextEdit.TabIndex = 4;
+            this.btnCancel.Location = new System.Drawing.Point(162, 367);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 9;
+            this.btnCancel.Text = "Huy";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.onCancel);
             // 
             // Classes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(876, 453);
+            this.ClientSize = new System.Drawing.Size(897, 453);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(tenLabel);
-            this.Controls.Add(this.tenTextEdit);
+            this.Controls.Add(this.teName);
             this.Controls.Add(maLopLabel);
-            this.Controls.Add(this.maLopTextEdit);
+            this.Controls.Add(this.teClass);
             this.Controls.Add(this.lOPGridControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Classes";
@@ -148,8 +173,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.lOPBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lOPGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maLopTextEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tenTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.teClass.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.teName.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,7 +188,9 @@
         private QLDSVDataSet_TablesTableAdapters.TableAdapterManager tableAdapterManager;
         private DevExpress.XtraGrid.GridControl lOPGridControl;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private DevExpress.XtraEditors.TextEdit maLopTextEdit;
-        private DevExpress.XtraEditors.TextEdit tenTextEdit;
+        private DevExpress.XtraEditors.TextEdit teClass;
+        private DevExpress.XtraEditors.TextEdit teName;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

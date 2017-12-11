@@ -58,10 +58,11 @@
             // 
             this.cbServer.DataSource = this.getSubscriptionsBindingSource;
             this.cbServer.DisplayMember = "Name";
+            this.cbServer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbServer.FormattingEnabled = true;
             this.cbServer.Location = new System.Drawing.Point(165, 85);
             this.cbServer.Name = "cbServer";
-            this.cbServer.Size = new System.Drawing.Size(121, 21);
+            this.cbServer.Size = new System.Drawing.Size(149, 21);
             this.cbServer.TabIndex = 1;
             this.cbServer.ValueMember = "ServerName";
             this.cbServer.SelectedIndexChanged += new System.EventHandler(this.onSelectedIndexChanged);
@@ -102,7 +103,7 @@
             // 
             this.tbUserName.Location = new System.Drawing.Point(165, 140);
             this.tbUserName.Name = "tbUserName";
-            this.tbUserName.Size = new System.Drawing.Size(121, 21);
+            this.tbUserName.Size = new System.Drawing.Size(149, 21);
             this.tbUserName.TabIndex = 4;
             this.tbUserName.Text = "dieunhi";
             // 
@@ -120,7 +121,7 @@
             this.tbPassword.Location = new System.Drawing.Point(165, 179);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.PasswordChar = '*';
-            this.tbPassword.Size = new System.Drawing.Size(121, 21);
+            this.tbPassword.Size = new System.Drawing.Size(149, 21);
             this.tbPassword.TabIndex = 6;
             this.tbPassword.Text = "1234";
             // 

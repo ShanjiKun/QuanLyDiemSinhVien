@@ -119,9 +119,9 @@ namespace QuanLyDiemSinhVien.Forms.Login
 
         void getScienceID()
         {
-            string servername = cbServer.Text;
-            string[] elems = servername.Split("_"[0]);
-            SqlClient.sharedInstance().scienceID = elems[1];
+            //  Get current science
+            DataRowView row = getSubscriptionsBindingSource.Current as DataRowView;
+            SqlClient.sharedInstance().scienceID = row["ScienceID"] as string;
         }
     }
 }

@@ -44,6 +44,12 @@ namespace QuanLyDiemSinhVien.Sql
         //  Delete Registraion
         string SE_DELETE_REGISTRATION = "DELETE FROM DANG_KY_MON_HOC WHERE MaSV = '{0}' AND MaLTC={1}";
 
+        //  Insert Subject
+        string SE_INSERT_SUBJECT = "INSERT INTO MON(MaMon, Ten, SoTLT, SoTTH, SoTC) VALUES('{0}', N'{1}', {2}, {3}, {4})";
+
+        //  Insert Class
+        string SE_INSERT_CLASS = "INSERT INTO LOP(MaLop, Ten, MaKh) VALUES ('{0}', N'{1}', '{2}')";
+
         //  MARK: Functions
         //  SingleTon setup
         public static SqlClient sharedInstance()
@@ -227,6 +233,34 @@ namespace QuanLyDiemSinhVien.Sql
             //  Init sql
             string studentID = UserProfile.sharedInstance().userID;
             string sql = string.Format(SE_DELETE_REGISTRATION, studentID, creditID);
+
+            //  Exec sql
+            execSqlNoResponse(sql, () => {
+                success();
+            }, error => {
+                failure(error);
+            });
+        }
+
+        //  Insert Subject
+        public void insertSubject(string newId, string name, string theory, string practise, string numberCredit, SuccessNonParamBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            string sql = string.Format(SE_INSERT_SUBJECT, newId, name, theory, practise, numberCredit);
+
+            //  Exec sql
+            execSqlNoResponse(sql, () => {
+                success();
+            }, error => {
+                failure(error);
+            });
+        }
+
+        //  Insert class
+        public void insertClass(string classID, string name, string science, SuccessNonParamBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            string sql = string.Format(SE_INSERT_CLASS, classID, name, science);
 
             //  Exec sql
             execSqlNoResponse(sql, () => {

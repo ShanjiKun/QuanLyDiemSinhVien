@@ -20,7 +20,7 @@ namespace QuanLyDiemSinhVien.Sql
         string initURL = "Data Source = {0}; Initial Catalog = QLDSV; User ID = {1}; Password={2}";
 
         //  Login
-        string SE_LOGIN = "EXEC SP_Login {0}";
+        string SE_LOGIN = "EXEC SP_Login '{0}'";
 
         //  Credit class
         //  Insert Credit Class

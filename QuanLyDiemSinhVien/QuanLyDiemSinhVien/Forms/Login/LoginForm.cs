@@ -13,6 +13,7 @@ using QuanLyDiemSinhVien.Models.User;
 using QuanLyDiemSinhVien.Forms.Science;
 using QuanLyDiemSinhVien.Forms.Student;
 using QuanLyDiemSinhVien.Forms.Base;
+using QuanLyDiemSinhVien.Forms.Teacher;
 
 namespace QuanLyDiemSinhVien.Forms.Login
 {
@@ -61,7 +62,7 @@ namespace QuanLyDiemSinhVien.Forms.Login
                     }
                 case "KHOA":
                     {
-                        
+                        ribbonForm = new TeacherForm();
                         break;
                     }
                 case "SINHVIEN":

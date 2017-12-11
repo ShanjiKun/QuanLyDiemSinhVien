@@ -53,6 +53,9 @@ namespace QuanLyDiemSinhVien.Sql
         //  Insert Teacher
         string SE_INSERT_TEACHER = "INSERT INTO GIANG_VIEN(MaGV, HoTen, HocVi, HocHam, ChuyenMon, MaKh) VALUES('{0}', N'{1}', N'{2}', N'{3}', N'{4}', '{5}')";
 
+        //  Insert Student
+        string SE_INSERT_STUDENT = "INSERT INTO SINH_VIEN(MaSV, HoTen, Phai, DiaChi, NgaySinh, KhoaHoc, MaLop, MaCN) VALUES('{0}', N'{1}', N'{2}', N'{3}', '{4}', {5}, '{6}', {7})";
+
         //  MARK: Functions
         //  SingleTon setup
         public static SqlClient sharedInstance()
@@ -283,6 +286,21 @@ namespace QuanLyDiemSinhVien.Sql
             execSqlNoResponse(sql, () => {
                 success();
             }, error => {
+                failure(error);
+            });
+        }
+
+        //  Insert Student
+        public void insertStudent(string id, string name, string sex, string address, string birthDay, string year, string classID, string major, SuccessNonParamBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            major = major == "NULL" ? "NULL" : "'" + major + "'";
+            string sql = string.Format(SE_INSERT_STUDENT, id, name, sex, address, birthDay, year, classID, major);
+
+            //  Exec sql
+            execSqlNoResponse(sql, ()=> {
+                success();
+            }, error=> {
                 failure(error);
             });
         }

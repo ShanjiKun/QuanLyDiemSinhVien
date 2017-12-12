@@ -41,67 +41,6 @@ namespace QuanLyDiemSinhVien.Forms.Science.Teacher
             this.gIANG_VIENTableAdapter.Fill(this.qLDSVDataSet_Tables.GIANG_VIEN);
         }
 
-        //  MARK: Handle Form State
-        void changeFormStateTo(FormState state)
-        {
-            switch (state)
-            {
-                case FormState.VIEW:
-                    {
-                        handleFormStateView();
-                        break;
-                    }
-                case FormState.ADD:
-                    {
-                        handleFormStateAdd();
-                        break;
-                    }
-                default:
-                    break;
-            }
-        }
-
-        void handleFormStateView()
-        {
-            //  Show button
-            if (this.qLDSVDataSet_Tables.GIANG_VIEN.Rows.Count > 0)
-            {
-                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit });
-            }
-            else
-            {
-                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add });
-            }
-
-            //  Disable fields
-            teId.Enabled = false;
-            teName.Enabled = false;
-            teDegree.Enabled = false;
-            teTitle.Enabled = false;
-            tePro.Enabled = false;
-
-            //  Disable add button
-            btnAdd.Hide();
-            btnCancel.Hide();
-        }
-
-        void handleFormStateAdd()
-        {
-            //  Hide buttons
-            Program.ribbonForm.disableButtons();
-
-            //  Disable fields
-            teId.Enabled = true;
-            teName.Enabled = true;
-            teDegree.Enabled = true;
-            teTitle.Enabled = true;
-            tePro.Enabled = true;
-
-            //  Disable add button
-            btnAdd.Show();
-            btnCancel.Show();
-        }
-
         //  MARK: Methods
         void addNew()
         {
@@ -142,12 +81,154 @@ namespace QuanLyDiemSinhVien.Forms.Science.Teacher
             });
         }
 
-        //  MARK: Actions
+        void save()
+        {
+            string id = teId.Text;
+            string name = teName.Text;
+            string degree = teDegree.Text;
+            string title = teTitle.Text;
+            string pro = tePro.Text;
+
+            if (id.Length == 0)
+            {
+                MessageBox.Show("Nhập mã giáo viên");
+                return;
+            }
+
+            if (name.Length == 0)
+            {
+                MessageBox.Show("Nhập tên giáo viên");
+                return;
+            }
+
+            if (pro.Length == 0)
+            {
+                MessageBox.Show("Nhập chuyên môn");
+                return;
+            }
+
+            //  Updating
+            SqlClient.sharedInstance().updateTeacher(id, name, degree, title, pro, () => {
+                MessageBox.Show("Cập nhật giáo viên thành công!");
+                //  Change state view
+                changeFormStateTo(FormState.VIEW);
+
+                //  Refresh Adapters
+                loadAdapters();
+            }, errorMessage => {
+                MessageBox.Show("Cập nhật giáo viên thất bại, lỗi: \n\n" + errorMessage);
+            });
+        }
+
+        void delete()
+        {
+
+        }
+
+        //  MARK: Handle Form State
+        void changeFormStateTo(FormState state)
+        {
+            switch (state)
+            {
+                case FormState.VIEW:
+                    {
+                        handleFormStateView();
+                        break;
+                    }
+                case FormState.ADD:
+                    {
+                        handleFormStateAdd();
+                        break;
+                    }
+                case FormState.EDIT:
+                    {
+                        handleFormStateEdit();
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+
+        void handleFormStateView()
+        {
+            //  Show button
+            if (this.qLDSVDataSet_Tables.GIANG_VIEN.Rows.Count > 0)
+            {
+                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit, FormScience.BarButtonType.Delete });
+            }
+            else
+            {
+                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add });
+            }
+
+            //  Disable fields
+            teId.Enabled = false;
+            teName.Enabled = false;
+            teDegree.Enabled = false;
+            teTitle.Enabled = false;
+            tePro.Enabled = false;
+
+            //  Disable add button
+            btnAdd.Hide();
+            btnCancel.Hide();
+        }
+
+        void handleFormStateAdd()
+        {
+            //  Hide buttons
+            Program.ribbonForm.disableButtons();
+
+            //  Disable fields
+            teId.Enabled = true;
+            teName.Enabled = true;
+            teDegree.Enabled = true;
+            teTitle.Enabled = true;
+            tePro.Enabled = true;
+
+            //  Disable add button
+            btnAdd.Show();
+            btnCancel.Show();
+        }
+
+        void handleFormStateEdit()
+        {
+            //  Hide buttons
+            Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Save });
+
+            //  Disable fields
+            teId.Enabled = false;
+            teName.Enabled = true;
+            teDegree.Enabled = true;
+            teTitle.Enabled = true;
+            tePro.Enabled = true;
+
+            //  Disable add button
+            btnAdd.Hide();
+            btnCancel.Show();
+        }
+
+        //  MARK: Override
         public override void onAdd()
         {
             changeFormStateTo(FormState.ADD);
         }
+        public override void onEdit()
+        {
+            changeFormStateTo(FormState.EDIT);
+        }
 
+        public override void onSave()
+        {
+            save();
+        }
+
+        public override void onDelete()
+        {
+            delete();
+        }
+
+        //  MARK: Actions
         private void onAdd(object sender, EventArgs e)
         {
             addNew();
@@ -156,6 +237,8 @@ namespace QuanLyDiemSinhVien.Forms.Science.Teacher
         private void onCancel(object sender, EventArgs e)
         {
             changeFormStateTo(FormState.VIEW);
+            //  Refresh Adapters
+            loadAdapters();
         }
     }
 }

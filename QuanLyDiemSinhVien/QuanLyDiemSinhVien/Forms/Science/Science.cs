@@ -1,23 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
 
-using System.Windows.Forms;
 using DevExpress.XtraBars;
-using QuanLyDiemSinhVien.Forms.Science.Classes;
 using QuanLyDiemSinhVien.Models.User;
 
 using QuanLyDiemSinhVien.Forms.Base;
-using QuanLyDiemSinhVien.Forms.Science.Student;
-using QuanLyDiemSinhVien.Forms.Science.Teacher;
-using QuanLyDiemSinhVien.Forms.Science.Subject;
-using QuanLyDiemSinhVien.Forms.Science.CreditClasses;
-using QuanLyDiemSinhVien.Forms.Science.CreditClassDetail;
+using QuanLyDiemSinhVien.Forms.Report.Student;
 
 namespace QuanLyDiemSinhVien.Forms.Science
 {
@@ -220,6 +208,14 @@ namespace QuanLyDiemSinhVien.Forms.Science
             {
                 baseForm.onRefresh();
             }
+        }
+
+
+        //  MARK: Report Actions
+        private void onListStudent(object sender, ItemClickEventArgs e)
+        {
+            StudentReportForm studentReportForm = new StudentReportForm();
+            showForm(studentReportForm);
         }
     }
 }

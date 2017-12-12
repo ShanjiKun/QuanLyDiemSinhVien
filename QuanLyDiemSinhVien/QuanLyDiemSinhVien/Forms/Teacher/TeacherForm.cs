@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraBars;
+using QuanLyDiemSinhVien.Forms.Teacher.InputPoint;
 
 namespace QuanLyDiemSinhVien.Forms.Teacher
 {
@@ -16,11 +17,15 @@ namespace QuanLyDiemSinhVien.Forms.Teacher
         public TeacherForm()
         {
             InitializeComponent();
+            
+            //  Able MdiContainer
+            IsMdiContainer = true;
         }
 
         private void onInputPoint(object sender, ItemClickEventArgs e)
         {
-
+            InputPoint.InputPoint inputPointForm = new InputPoint.InputPoint();
+            showForm(inputPointForm);
         }
     }
 }

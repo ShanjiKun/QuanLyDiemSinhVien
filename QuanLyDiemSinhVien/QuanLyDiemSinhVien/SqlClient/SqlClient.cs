@@ -56,6 +56,9 @@ namespace QuanLyDiemSinhVien.Sql
         //  Insert Student
         string SE_INSERT_STUDENT = "INSERT INTO SINH_VIEN(MaSV, HoTen, Phai, DiaChi, NgaySinh, KhoaHoc, MaLop, MaCN) VALUES('{0}', N'{1}', N'{2}', N'{3}', '{4}', {5}, '{6}', {7})";
 
+        //  Update point
+        string SE_UPDATE_POINT = "UPDATE DANG_KY_MON_HOC SET Diem = {0} WHERE MaSV = '{1}' AND MaLTC = '{2}'";
+
         //  MARK: Functions
         //  SingleTon setup
         public static SqlClient sharedInstance()
@@ -301,6 +304,20 @@ namespace QuanLyDiemSinhVien.Sql
             execSqlNoResponse(sql, ()=> {
                 success();
             }, error=> {
+                failure(error);
+            });
+        }
+
+        //  Update point
+        public void updateStudent(string studentId, string creditId, string point, SuccessNonParamBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            string sql = string.Format(SE_UPDATE_POINT, point, studentId, creditId);
+
+            //  Exec sql
+            execSqlNoResponse(sql, () => {
+                success();
+            }, error => {
                 failure(error);
             });
         }

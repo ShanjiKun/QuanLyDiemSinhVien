@@ -3,43 +3,49 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
+using QuanLyDiemSinhVien.Forms.Science;
 using QuanLyDiemSinhVien.Sql;
-using QuanLyDiemSinhVien.Forms.Base;
 
-namespace QuanLyDiemSinhVien.Forms.Science.Classes
+namespace QuanLyDiemSinhVien.Forms.Teacher.InputPoint
 {
-    public partial class Classes : BaseForm
+    public partial class InputPoint : Base.BaseForm
     {
-        public Classes()
+        public InputPoint()
         {
             InitializeComponent();
         }
 
-        private void lOPBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.lOPBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.qLDSVDataSet_Tables);
-
-        }
-
-        private void Classes_Load(object sender, EventArgs e)
+        private void InputPoint_Load(object sender, EventArgs e)
         {
             //  Load Adapters
             loadAdapters();
 
             //  Setting up state of form
-            changeFormStateTo(FormState.VIEW);
+            changeFormStateTo(FormState.ADD);
         }
 
         void loadAdapters()
         {
-            this.lOPTableAdapter.Connection.ConnectionString = SqlClient.sharedInstance().sqlConnectString;
-            this.lOPTableAdapter.Fill(this.qLDSVDataSet_Tables.LOP);
+            this.lOP_TCTableAdapter.Connection.ConnectionString = SqlClient.sharedInstance().sqlConnectString;
+            this.lOP_TCTableAdapter.Fill(this.qLDSVDataSet_Tables.LOP_TC);
+        }
+
+        void loadRegistrationAdapter()
+        {
+            try
+            {
+                this.sP_GetRegistrationByCreditTableAdapter.Connection.ConnectionString = SqlClient.sharedInstance().sqlConnectString;
+                this.sP_GetRegistrationByCreditTableAdapter.Fill(this.qLDSVDataSet.SP_GetRegistrationByCredit, Convert.ToInt32(cbCredit.SelectedValue));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi load DANG_KY_MON_HOC, lỗi: \n\n" + ex.Message);
+            }
         }
 
         //  MARK: Handle Form State
@@ -65,7 +71,7 @@ namespace QuanLyDiemSinhVien.Forms.Science.Classes
         void handleFormStateView()
         {
             //  Show button
-            if (this.qLDSVDataSet_Tables.LOP.Rows.Count > 0)
+            if (this.qLDSVDataSet.SP_GetRegistrationByCredit.Rows.Count > 0)
             {
                 Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit });
             }
@@ -75,12 +81,12 @@ namespace QuanLyDiemSinhVien.Forms.Science.Classes
             }
 
             //  Disable fields
-            teClass.Enabled = false;
+            teId.Enabled = false;
             teName.Enabled = false;
+            sePoint.Enabled = false;
 
             //  Disable add button
             btnAdd.Hide();
-            btnCancel.Hide();
         }
 
         void handleFormStateAdd()
@@ -89,58 +95,50 @@ namespace QuanLyDiemSinhVien.Forms.Science.Classes
             Program.ribbonForm.disableButtons();
 
             //  Disable fields
-            teClass.Enabled = true;
-            teName.Enabled = true;
+            teId.Enabled = false;
+            teName.Enabled = false;
+            sePoint.Enabled = true;
 
             //  Disable add button
             btnAdd.Show();
-            btnCancel.Show();
         }
 
         //  MARK: Methods
-        void addNew()
+        void update()
         {
-            string classID = teClass.Text;
-            string name = teName.Text;
-            if (classID.Length == 0)
-            {
-                MessageBox.Show("Nhập mã lớp");
-                return;
-            }
+            string studentId = teId.Text;
+            string creditId = cbCredit.SelectedValue.ToString();
+            string point = sePoint.Value.ToString();
 
-            if (name.Length == 0)
+            if (sePoint.Value < 0 || sePoint.Value > 10)
             {
-                MessageBox.Show("Nhập tên lớp");
+                MessageBox.Show(" 0 <= Điểm <= 10");
                 return;
             }
 
             //  Inserting
-            SqlClient.sharedInstance().insertClass(classID, name, ()=> {
-                MessageBox.Show("Thêm lớp thành công!");
+            SqlClient.sharedInstance().updateStudent(studentId, creditId, point, () => {
+                MessageBox.Show("Cập nhật điểm thành công!");
                 //  Change state view
                 changeFormStateTo(FormState.VIEW);
 
                 //  Refresh Adapters
                 loadAdapters();
-            },errorMessage=> {
-                MessageBox.Show("Thêm lớp thất bại, lỗi: \n\n" + errorMessage);
+            }, errorMessage => {
+                MessageBox.Show("Cập nhật điểm thất bại, lỗi: \n\n" + errorMessage);
             });
         }
 
         //  MARK: Actions
-        public override void onAdd()
-        {
-            changeFormStateTo(FormState.ADD);
-        }
-
         private void onAdd(object sender, EventArgs e)
         {
-            addNew();
+            update();
         }
 
-        private void onCancel(object sender, EventArgs e)
+        private void onCBCreditChanged(object sender, EventArgs e)
         {
-            changeFormStateTo(FormState.VIEW);
+            if (cbCredit.SelectedValue == null) return;
+            loadRegistrationAdapter();
         }
     }
 }

@@ -91,7 +91,7 @@ namespace QuanLyDiemSinhVien.Forms.Science.Student
         void handleFormStateView()
         {
             //  Show button
-            if (this.qLDSVDataSet_Tables.MON.Rows.Count > 0)
+            if (this.qLDSVDataSet.SP_GetStudentByClass.Rows.Count > 0)
             {
                 Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit });
             }

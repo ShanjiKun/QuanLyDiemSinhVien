@@ -121,6 +121,12 @@
     <Compile Include="Forms\Student\Student.Designer.cs">
       <DependentUpon>Student.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Teacher\InputPoint\InputPoint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Teacher\InputPoint\InputPoint.Designer.cs">
+      <DependentUpon>InputPoint.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Teacher\TeacherForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Student\Student.resx">
       <DependentUpon>Student.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Teacher\InputPoint\InputPoint.resx">
+      <DependentUpon>InputPoint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Teacher\TeacherForm.resx">
       <DependentUpon>TeacherForm.cs</DependentUpon>

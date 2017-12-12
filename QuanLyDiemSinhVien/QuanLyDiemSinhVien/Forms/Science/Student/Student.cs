@@ -339,5 +339,10 @@ namespace QuanLyDiemSinhVien.Forms.Science.Student
             //  Refresh Adapters
             loadStudentAdapter();
         }
+
+        private void onChangeClass(object sender, EventArgs e)
+        {
+
+        }
     }
 }

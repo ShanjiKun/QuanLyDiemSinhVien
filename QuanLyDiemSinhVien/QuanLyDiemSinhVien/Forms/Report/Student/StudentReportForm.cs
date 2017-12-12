@@ -59,9 +59,14 @@ namespace QuanLyDiemSinhVien.Forms.Report.Student
             this.sP_GetStudentTableAdapter.Connection.ConnectionString = Sql.SqlClient.sharedInstance().sqlConnectString;
             QLDSVDataSet.SP_GetStudentDataTable dataSource = this.sP_GetStudentTableAdapter.GetData(classID);
 
-            StudentReport studentReport = new StudentReport();
+            if (dataSource.Rows.Count == 0)
+            {
+                MessageBox.Show("Danh sách trống");
+            }
+
+            Report_Tien.StudentReport studentReport = new Report_Tien.StudentReport();
             studentReport.SetDataSource((DataTable)dataSource);
-            studentReport.SetParameterValue("ClassName", className);
+            studentReport.SetParameterValue("LOP", className);
             crView.ReportSource = studentReport;
         }
 

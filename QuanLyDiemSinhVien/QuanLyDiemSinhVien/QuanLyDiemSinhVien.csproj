@@ -92,6 +92,21 @@
     <Compile Include="Forms\Report\Student\StudentReportForm.Designer.cs">
       <DependentUpon>StudentReportForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Report\Subject\SubjectReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Report\Subject\SubjectReport.Designer.cs">
+      <DependentUpon>SubjectReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Report_Tien\StranSub.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\Report_Tien\StranSub1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StranSub.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\Report_Tien\StudentExam.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -206,6 +221,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Report\Student\StudentReportForm.resx">
       <DependentUpon>StudentReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report\Subject\SubjectReport.resx">
+      <DependentUpon>SubjectReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report_Tien\StranSub.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>StranSub1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Report_Tien\StudentExam.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

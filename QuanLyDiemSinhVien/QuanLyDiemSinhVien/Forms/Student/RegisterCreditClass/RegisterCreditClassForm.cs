@@ -417,10 +417,14 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
 
             //  Handle Save
             //  handle deteting
-            handleDeleteRegistration(listDeleting);
+            bool isFailD = false;
+            isFailD = handleDeleteRegistration(listDeleting);
 
             //  handle registration
-            handleRegistration(listAdding);
+            bool isFailI = false;
+            isFailI = handleRegistration(listAdding);
+
+            if (!isFailI && !isFailD) MessageBox.Show("Đăng ký thành công");
 
             //  Reload registered
             if (listAdding.Count > 0 || listDeleting.Count > 0)
@@ -429,28 +433,35 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
             }
         }
 
-        void handleRegistration(List<int> creditIDs)
+        bool handleRegistration(List<int> creditIDs)
         {
+            bool isFail = false;
             foreach(int creditID in creditIDs)
             {
                 SqlClient.sharedInstance().insertRegistration(creditID, () => {
-
+                    
                 }, errorMessage => {
+                    isFail = true;
                     MessageBox.Show("Insert DANG_KY_MON_HOC id-"+ creditID +" failure, lỗi: \n\n " + errorMessage);
                 });
             }
+
+            return isFail;
         }
 
-        void handleDeleteRegistration(List<int> creditIDs)
+        bool handleDeleteRegistration(List<int> creditIDs)
         {
+            bool isFail = false;
             foreach (int creditID in creditIDs)
             {
                 SqlClient.sharedInstance().deleteRegistration(creditID, () => {
 
                 }, errorMessage => {
+                    isFail = true;
                     MessageBox.Show("Delete DANG_KY_MON_HOC id-" + creditID + " failure, lỗi: \n\n " + errorMessage);
                 });
             }
+            return isFail;
         }
 
         bool canRegistration(ValidCreditClassModel newModel)

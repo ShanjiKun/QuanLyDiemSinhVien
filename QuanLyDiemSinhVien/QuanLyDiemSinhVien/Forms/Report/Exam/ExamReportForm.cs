@@ -57,12 +57,36 @@ namespace QuanLyDiemSinhVien.Forms.Report.Exam
                 MessageBox.Show("Danh sách trống");
             }
 
+            //  Load Credit information
+            string LOP = id.ToString();
+            string MON = "";
+            string NHOM = "";
+            string NGAYTHI = "";
+            Sql.SqlClient.sharedInstance().getSpecifyCreditClass(id.ToString(), reponse => {
+
+                List<Object> list = reponse as List<object>;
+                if (list.Count == 0)
+                {
+                    MessageBox.Show("Lấy thông tin lớp tín chỉ lỗi, lỗi: \n\n không tìm thấy MaLTC " + id);
+                }
+                else
+                {
+                    Dictionary<string, object> creditInfor = list[0] as Dictionary<string, object>;
+                    MON = creditInfor["Ten"] as string;
+                    NHOM = ((int)creditInfor["Nhom"]).ToString();
+                    NGAYTHI = ((DateTime)creditInfor["NgayThi"]).ToString();
+                }
+            }, error => {
+                MessageBox.Show("Lấy thông tin lớp tín chỉ lỗi, lỗi: \n\n" + error);
+            });
+
+            //  Create report
             Report_Tien.StudentExam report = new Report_Tien.StudentExam();
             report.SetDataSource((DataTable)dataSource);
-            report.SetParameterValue("LOP", id.ToString());
-            report.SetParameterValue("MON", id.ToString());
-            report.SetParameterValue("NHOM", id.ToString());
-            report.SetParameterValue("NGAYTHI", id.ToString());
+            report.SetParameterValue("LOP", LOP);
+            report.SetParameterValue("MON", MON);
+            report.SetParameterValue("NHOM", NHOM);
+            report.SetParameterValue("NGAYTHI", NGAYTHI);
             crView.ReportSource = report;
         }
 

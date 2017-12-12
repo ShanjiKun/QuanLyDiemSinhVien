@@ -64,7 +64,7 @@ namespace QuanLyDiemSinhVien.Forms.Report.Student
                 MessageBox.Show("Danh sách trống");
             }
 
-            Report_Tien.StudentExam studentReport = new Report_Tien.StudentExam();
+            Report_Tien.StudentReport studentReport = new Report_Tien.StudentReport();
             studentReport.SetDataSource((DataTable)dataSource);
             studentReport.SetParameterValue("LOP", className);
             crView.ReportSource = studentReport;

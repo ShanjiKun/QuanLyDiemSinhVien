@@ -35,8 +35,11 @@ namespace QuanLyDiemSinhVien.Sql
         //  Get valid Credit Class
         string SE_GET_VALID_CREDIT_CLASS = "SELECT * FROM VIEW_ValidCreditClass";
 
-        //  Get valid Credit Class
+        //  Get valid Credit Detail Class
         string SE_GET_CREDIT_CLASS_DETAIL = "SELECT * FROM CT_LOP_TC WHERE MaLTC = {0}";
+
+        //  Get Credit Class
+        string SE_GET_SPECIFY_CREDIT_CLASS_INFOR = "SELECT MaLTC, m.Ten, Nhom, NgayThi, HocKy, MaNK FROM MON m INNER JOIN (SELECT MaLTC, MaMon, Nhom, NgayThi, HocKy, MaNK FROM LOP_TC WHERE MaLTC = {0}) tc ON m.MaMon = tc.MaMon";
 
         //  Get Registered
         string SE_GET_REGISTERED = "SELECT MaLTC FROM DANG_KY_MON_HOC WHERE MaSV = '{0}'";
@@ -58,6 +61,9 @@ namespace QuanLyDiemSinhVien.Sql
 
         //  Update Class
         string SE_UPDATE_CLASS = "UPDATE LOP SET Ten = N'{0}' WHERE MaLop = '{1}'";
+
+        //  Delete Class
+        string SE_DELETE_CLASS = "DELETE FROM LOP WHERE MaLop='{0}'";
 
         //  Insert Teacher
         string SE_INSERT_TEACHER = "INSERT INTO GIANG_VIEN(MaGV, HoTen, HocVi, HocHam, ChuyenMon, MaKh) VALUES('{0}', N'{1}', N'{2}', N'{3}', N'{4}', '{5}')";
@@ -216,6 +222,20 @@ namespace QuanLyDiemSinhVien.Sql
             });
         }
 
+        // Get specify credit class
+        public void getSpecifyCreditClass(string id, SuccessBlock success, FailureBlock failure)
+        {
+            // Init sql
+            string sql = string.Format(SE_GET_SPECIFY_CREDIT_CLASS_INFOR, id);
+
+            // Exec sql
+            execSql(sql, response => {
+                success(response);
+            }, error => {
+                failure(error);
+            });
+        }
+
         //  Get Registered
         public void getRegistered(SuccessBlock success, FailureBlock failure)
         {
@@ -314,6 +334,20 @@ namespace QuanLyDiemSinhVien.Sql
         {
             //  Init sql
             string sql = string.Format(SE_UPDATE_CLASS, name, classID);
+
+            //  Exec sql
+            execSqlNoResponse(sql, () => {
+                success();
+            }, error => {
+                failure(error);
+            });
+        }
+
+        //  Delete class
+        public void deleteClass(string classID, SuccessNonParamBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            string sql = string.Format(SE_DELETE_CLASS, classID);
 
             //  Exec sql
             execSqlNoResponse(sql, () => {

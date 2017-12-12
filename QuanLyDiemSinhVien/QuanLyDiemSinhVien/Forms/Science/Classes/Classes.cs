@@ -106,7 +106,23 @@ namespace QuanLyDiemSinhVien.Forms.Science.Classes
 
         void delete()
         {
+            string classID = teClass.Text;
+            if (classID.Length == 0)
+            {
+                MessageBox.Show("Mã lớp rỗng");
+                return;
+            }
 
+            SqlClient.sharedInstance().deleteClass(classID, () => {
+                MessageBox.Show("Xóa lớp thành công!");
+                //  Change state view
+                changeFormStateTo(FormState.VIEW);
+
+                //  Refresh Adapters
+                loadAdapters();
+            }, error => {
+                MessageBox.Show("Xóa lớp thất bại, lỗi: \n\n" + error);
+            });
         }
 
         //  MARK: Handle Form State

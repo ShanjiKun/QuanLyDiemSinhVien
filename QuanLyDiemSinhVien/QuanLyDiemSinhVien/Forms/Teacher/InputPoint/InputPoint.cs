@@ -83,10 +83,10 @@ namespace QuanLyDiemSinhVien.Forms.Teacher.InputPoint
             //  Disable fields
             teId.Enabled = false;
             teName.Enabled = false;
-            sePoint.Enabled = false;
+            sePoint.Enabled = true;
 
             //  Disable add button
-            btnAdd.Hide();
+            btnAdd.Show();
         }
 
         void handleFormStateAdd()
@@ -118,12 +118,12 @@ namespace QuanLyDiemSinhVien.Forms.Teacher.InputPoint
 
             //  Inserting
             SqlClient.sharedInstance().updatePoint(studentId, creditId, point, () => {
-                MessageBox.Show("Cập nhật điểm thành công!");
+                //MessageBox.Show("Cập nhật điểm thành công!");
                 //  Change state view
                 changeFormStateTo(FormState.VIEW);
 
                 //  Refresh Adapters
-                loadAdapters();
+                loadRegistrationAdapter();
             }, errorMessage => {
                 MessageBox.Show("Cập nhật điểm thất bại, lỗi: \n\n" + errorMessage);
             });

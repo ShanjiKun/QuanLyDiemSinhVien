@@ -57,13 +57,38 @@ namespace QuanLyDiemSinhVien.Forms.Report.Subject
                 MessageBox.Show("Danh sách trống");
             }
 
+            //  Load Credit information
+            string LOP = id.ToString();
+            string MON = "";
+            string NHOM = "";
+            string NIENKHOA = "";
+            string HOCKY = "";
+            Sql.SqlClient.sharedInstance().getSpecifyCreditClass(id.ToString(), reponse => {
+
+                List<Object> list = reponse as List<object>;
+                if (list.Count == 0)
+                {
+                    MessageBox.Show("Lấy thông tin lớp tín chỉ lỗi, lỗi: \n\n không tìm thấy MaLTC " + id);
+                }
+                else
+                {
+                    Dictionary<string, object> creditInfor = list[0] as Dictionary<string, object>;
+                    MON = creditInfor["Ten"] as string;
+                    NHOM = ((int)creditInfor["Nhom"]).ToString();
+                    NIENKHOA = creditInfor["MaNK"] as string;
+                    HOCKY = ((int)creditInfor["HocKy"]).ToString();
+                }
+            }, error => {
+                MessageBox.Show("Lấy thông tin lớp tín chỉ lỗi, lỗi: \n\n" + error);
+            });
+
             Report_Tien.StranSub report = new Report_Tien.StranSub();
             report.SetDataSource((DataTable)dataSource);
-            report.SetParameterValue("LOP", id.ToString());
-            report.SetParameterValue("MONHOC", id.ToString());
-            report.SetParameterValue("NHOM", id.ToString());
-            report.SetParameterValue("NIENKHOA", id.ToString());
-            report.SetParameterValue("HOCKY", id.ToString());
+            report.SetParameterValue("LOP", LOP);
+            report.SetParameterValue("MONHOC", MON);
+            report.SetParameterValue("NHOM", NHOM);
+            report.SetParameterValue("NIENKHOA", NIENKHOA);
+            report.SetParameterValue("HOCKY", HOCKY);
             crView.ReportSource = report;
         }
 

@@ -57,7 +57,9 @@ namespace QuanLyDiemSinhVien.Forms.Science.Student
             Dictionary<string, string> items = new Dictionary<string, string>();
             items.Add("NULL", "NULL");
 
+            this.cHUYEN_NGANHTableAdapter.Connection.ConnectionString = Sql.SqlClient.sharedInstance().sqlConnectString;
             QLDSVDataSet_Tables.CHUYEN_NGANHDataTable table = this.cHUYEN_NGANHTableAdapter.GetData();
+
             foreach (DataRow row in table.Rows)
             {
                 items.Add(row["MaCN"] as string, row["Ten"] as string);
@@ -336,6 +338,11 @@ namespace QuanLyDiemSinhVien.Forms.Science.Student
 
             //  Refresh Adapters
             loadStudentAdapter();
+        }
+
+        private void onChangeClass(object sender, EventArgs e)
+        {
+
         }
     }
 }

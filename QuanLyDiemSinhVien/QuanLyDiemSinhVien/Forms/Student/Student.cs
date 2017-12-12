@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DevExpress.XtraBars;
 using QuanLyDiemSinhVien.Forms.Base;
 using QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass;
+using QuanLyDiemSinhVien.Forms.Report.StranStudent;
 
 namespace QuanLyDiemSinhVien.Forms.Student
 {
@@ -26,6 +27,12 @@ namespace QuanLyDiemSinhVien.Forms.Student
         {
             RegisterCreditClassForm registerCCForm = new RegisterCreditClassForm();
             showForm(registerCCForm);
+        }
+
+        private void onTicket(object sender, ItemClickEventArgs e)
+        {
+            StranStudentForm stranStudentForm = new StranStudentForm();
+            showForm(stranStudentForm);
         }
     }
 }

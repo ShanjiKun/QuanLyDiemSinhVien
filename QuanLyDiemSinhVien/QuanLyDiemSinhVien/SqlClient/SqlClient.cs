@@ -391,6 +391,39 @@ namespace QuanLyDiemSinhVien.Sql
             });
         }
 
+        //  MARK: Multiple DB
+        //  Get class
+        string SE_MD_GET_CLASS = "SELECT MaLop, Ten FROM {0}LOP";
+        public void MDGetClass(string scienceID, SuccessBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            string server = scienceID == this.scienceID ? "" : "LINK1.QLDSV.dbo.";
+            string sql = string.Format(SE_MD_GET_CLASS, server);
+
+            //  Exec sql
+            execSql(sql, response =>{
+                success(response);
+            }, error => {
+                failure(error);
+            });
+        }
+
+        //  Get class
+        string SE_MD_GET_CREDIT_CLASS = "SELECT MaLTC FROM {0}LOP_TC";
+        public void MDGetCreditClass(string scienceID, SuccessBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            string server = scienceID == this.scienceID ? "" : "LINK1.QLDSV.dbo.";
+            string sql = string.Format(SE_MD_GET_CREDIT_CLASS, server);
+
+            //  Exec sql
+            execSql(sql, response => {
+                success(response);
+            }, error => {
+                failure(error);
+            });
+        }
+
         //  Utils
         string dateToYYYYMMDD(DateTime date)
         {

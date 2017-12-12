@@ -125,6 +125,7 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.CHUYEN_NGANHTableAdapter = null;
             this.tableAdapterManager.CT_LOP_TCTableAdapter = null;
             this.tableAdapterManager.GIANG_VIENTableAdapter = this.gIANG_VIENTableAdapter;
             this.tableAdapterManager.KHOATableAdapter = null;
@@ -168,7 +169,7 @@
             this.teName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.gIANG_VIENBindingSource, "HoTen", true));
             this.teName.Location = new System.Drawing.Point(177, 289);
             this.teName.Name = "teName";
-            this.teName.Size = new System.Drawing.Size(100, 20);
+            this.teName.Size = new System.Drawing.Size(188, 20);
             this.teName.TabIndex = 4;
             // 
             // teDegree

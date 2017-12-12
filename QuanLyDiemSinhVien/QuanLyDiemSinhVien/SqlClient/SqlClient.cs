@@ -47,6 +47,9 @@ namespace QuanLyDiemSinhVien.Sql
         //  Insert Subject
         string SE_INSERT_SUBJECT = "INSERT INTO MON(MaMon, Ten, SoTLT, SoTTH, SoTC) VALUES('{0}', N'{1}', {2}, {3}, {4})";
 
+        //  Update Subject
+        string SE_UPDATE_SUBJECT = "UPDATE MON SET Ten=N'{0}', SoTLT={1}, SoTTH={2}, SoTC={3} WHERE MaMon='{4}'";
+
         //  Insert Class
         string SE_INSERT_CLASS = "INSERT INTO LOP(MaLop, Ten, MaKh) VALUES ('{0}', N'{1}', '{2}')";
 
@@ -63,7 +66,7 @@ namespace QuanLyDiemSinhVien.Sql
         string SE_INSERT_STUDENT = "INSERT INTO SINH_VIEN(MaSV, HoTen, Phai, DiaChi, NgaySinh, KhoaHoc, MaLop, MaCN) VALUES('{0}', N'{1}', N'{2}', N'{3}', '{4}', {5}, '{6}', {7})";
 
         //  Update Student
-        string SE_UPDATE_STUDENT = "UPDATE SINH_VIEN SET HoTen = N'{0}', Phai = N'{1}', DiaChi = N'{2}', NgaySinh = '{3}', KhoaHoc = '{4}', MaCN = {5} WHERE MaSV = '{6}'";
+        string SE_UPDATE_STUDENT = "UPDATE SINH_VIEN SET HoTen = N'{0}', Phai = N'{1}', DiaChi = N'{2}', NgaySinh = '{3}', KhoaHoc = {4}, MaCN = {5} WHERE MaSV = '{6}'";
 
         //  Update point
         string SE_UPDATE_POINT = "UPDATE DANG_KY_MON_HOC SET Diem = {0} WHERE MaSV = '{1}' AND MaLTC = '{2}'";
@@ -265,6 +268,20 @@ namespace QuanLyDiemSinhVien.Sql
         {
             //  Init sql
             string sql = string.Format(SE_INSERT_SUBJECT, newId, name, theory, practise, numberCredit);
+
+            //  Exec sql
+            execSqlNoResponse(sql, () => {
+                success();
+            }, error => {
+                failure(error);
+            });
+        }
+
+        //  Update Subject
+        public void updateSubject(string newId, string name, string theory, string practise, string numberCredit, SuccessNonParamBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            string sql = string.Format(SE_UPDATE_SUBJECT, name, theory, practise, numberCredit, newId);
 
             //  Exec sql
             execSqlNoResponse(sql, () => {

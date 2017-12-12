@@ -125,6 +125,7 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.CHUYEN_NGANHTableAdapter = null;
             this.tableAdapterManager.CT_LOP_TCTableAdapter = null;
             this.tableAdapterManager.GIANG_VIENTableAdapter = null;
             this.tableAdapterManager.KHOATableAdapter = null;
@@ -160,7 +161,7 @@
             this.teSubjectID.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.mONBindingSource, "MaMon", true));
             this.teSubjectID.Location = new System.Drawing.Point(174, 271);
             this.teSubjectID.Name = "teSubjectID";
-            this.teSubjectID.Size = new System.Drawing.Size(130, 20);
+            this.teSubjectID.Size = new System.Drawing.Size(98, 20);
             this.teSubjectID.TabIndex = 2;
             // 
             // teName
@@ -168,7 +169,7 @@
             this.teName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.mONBindingSource, "Ten", true));
             this.teName.Location = new System.Drawing.Point(174, 297);
             this.teName.Name = "teName";
-            this.teName.Size = new System.Drawing.Size(130, 20);
+            this.teName.Size = new System.Drawing.Size(189, 20);
             this.teName.TabIndex = 4;
             // 
             // seTheory
@@ -183,7 +184,7 @@
             this.seTheory.Name = "seTheory";
             this.seTheory.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.seTheory.Size = new System.Drawing.Size(130, 20);
+            this.seTheory.Size = new System.Drawing.Size(98, 20);
             this.seTheory.TabIndex = 6;
             // 
             // sePractise
@@ -198,7 +199,7 @@
             this.sePractise.Name = "sePractise";
             this.sePractise.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.sePractise.Size = new System.Drawing.Size(130, 20);
+            this.sePractise.Size = new System.Drawing.Size(98, 20);
             this.sePractise.TabIndex = 8;
             // 
             // seCredit
@@ -213,7 +214,7 @@
             this.seCredit.Name = "seCredit";
             this.seCredit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.seCredit.Size = new System.Drawing.Size(130, 20);
+            this.seCredit.Size = new System.Drawing.Size(98, 20);
             this.seCredit.TabIndex = 10;
             // 
             // btnAdd

@@ -43,6 +43,8 @@
             this.lOPBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lOPTableAdapter = new QuanLyDiemSinhVien.QLDSVDataSet_TablesTableAdapters.LOPTableAdapter();
             this.teId = new DevExpress.XtraEditors.TextEdit();
+            this.sP_GetStudentByClassBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.qLDSVDataSet = new QuanLyDiemSinhVien.QLDSVDataSet();
             this.teName = new DevExpress.XtraEditors.TextEdit();
             this.teSex = new DevExpress.XtraEditors.TextEdit();
             this.teAddress = new DevExpress.XtraEditors.TextEdit();
@@ -54,8 +56,6 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.cbMajor = new System.Windows.Forms.ComboBox();
-            this.qLDSVDataSet = new QuanLyDiemSinhVien.QLDSVDataSet();
-            this.sP_GetStudentByClassBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.sP_GetStudentByClassTableAdapter = new QuanLyDiemSinhVien.QLDSVDataSetTableAdapters.SP_GetStudentByClassTableAdapter();
             this.tableAdapterManager1 = new QuanLyDiemSinhVien.QLDSVDataSetTableAdapters.TableAdapterManager();
             this.sP_GetStudentByClassGridControl = new DevExpress.XtraGrid.GridControl();
@@ -70,6 +70,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.qLDSVDataSet_Tables)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lOPBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.teId.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sP_GetStudentByClassBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.qLDSVDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.teName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.teSex.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.teAddress.Properties)).BeginInit();
@@ -78,8 +80,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.seYear.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cHUYENNGANHBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.teMajor.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qLDSVDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sP_GetStudentByClassBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sP_GetStudentByClassGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
@@ -156,6 +156,7 @@
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
             this.tableAdapterManager.CHUYEN_NGANHTableAdapter = null;
+            this.tableAdapterManager.Connection = null;
             this.tableAdapterManager.CT_LOP_TCTableAdapter = null;
             this.tableAdapterManager.GIANG_VIENTableAdapter = null;
             this.tableAdapterManager.KHOATableAdapter = null;
@@ -164,6 +165,7 @@
             this.tableAdapterManager.MONTableAdapter = null;
             this.tableAdapterManager.NIEN_KHOATableAdapter = null;
             this.tableAdapterManager.PHONG_HOCTableAdapter = null;
+            this.tableAdapterManager.SINH_VIENTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = QuanLyDiemSinhVien.QLDSVDataSet_TablesTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // label1
@@ -202,15 +204,25 @@
             this.teId.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.sP_GetStudentByClassBindingSource, "MaSV", true));
             this.teId.Location = new System.Drawing.Point(79, 273);
             this.teId.Name = "teId";
-            this.teId.Size = new System.Drawing.Size(180, 20);
+            this.teId.Size = new System.Drawing.Size(142, 20);
             this.teId.TabIndex = 4;
+            // 
+            // sP_GetStudentByClassBindingSource
+            // 
+            this.sP_GetStudentByClassBindingSource.DataMember = "SP_GetStudentByClass";
+            this.sP_GetStudentByClassBindingSource.DataSource = this.qLDSVDataSet;
+            // 
+            // qLDSVDataSet
+            // 
+            this.qLDSVDataSet.DataSetName = "QLDSVDataSet";
+            this.qLDSVDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // teName
             // 
             this.teName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.sP_GetStudentByClassBindingSource, "HoTen", true));
             this.teName.Location = new System.Drawing.Point(79, 302);
             this.teName.Name = "teName";
-            this.teName.Size = new System.Drawing.Size(180, 20);
+            this.teName.Size = new System.Drawing.Size(216, 20);
             this.teName.TabIndex = 6;
             // 
             // teSex
@@ -218,7 +230,7 @@
             this.teSex.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.sP_GetStudentByClassBindingSource, "Phai", true));
             this.teSex.Location = new System.Drawing.Point(79, 330);
             this.teSex.Name = "teSex";
-            this.teSex.Size = new System.Drawing.Size(122, 20);
+            this.teSex.Size = new System.Drawing.Size(77, 20);
             this.teSex.TabIndex = 8;
             // 
             // teAddress
@@ -226,7 +238,7 @@
             this.teAddress.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.sP_GetStudentByClassBindingSource, "DiaChi", true));
             this.teAddress.Location = new System.Drawing.Point(79, 356);
             this.teAddress.Name = "teAddress";
-            this.teAddress.Size = new System.Drawing.Size(180, 20);
+            this.teAddress.Size = new System.Drawing.Size(216, 20);
             this.teAddress.TabIndex = 10;
             // 
             // dpBirthtday
@@ -303,16 +315,6 @@
             this.cbMajor.Size = new System.Drawing.Size(121, 21);
             this.cbMajor.TabIndex = 19;
             // 
-            // qLDSVDataSet
-            // 
-            this.qLDSVDataSet.DataSetName = "QLDSVDataSet";
-            this.qLDSVDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // sP_GetStudentByClassBindingSource
-            // 
-            this.sP_GetStudentByClassBindingSource.DataMember = "SP_GetStudentByClass";
-            this.sP_GetStudentByClassBindingSource.DataSource = this.qLDSVDataSet;
-            // 
             // sP_GetStudentByClassTableAdapter
             // 
             this.sP_GetStudentByClassTableAdapter.ClearBeforeFill = true;
@@ -375,6 +377,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.qLDSVDataSet_Tables)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lOPBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.teId.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sP_GetStudentByClassBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.qLDSVDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.teName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.teSex.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.teAddress.Properties)).EndInit();
@@ -383,8 +387,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.seYear.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cHUYENNGANHBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.teMajor.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qLDSVDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sP_GetStudentByClassBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sP_GetStudentByClassGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);

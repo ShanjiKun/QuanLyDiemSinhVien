@@ -74,6 +74,12 @@
     <Compile Include="Forms\Login\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Report\Exam\ExamReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Report\Exam\ExamReportForm.Designer.cs">
+      <DependentUpon>ExamReportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Report\Student\StudentReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,6 +91,15 @@
     </Compile>
     <Compile Include="Forms\Report\Student\StudentReportForm.Designer.cs">
       <DependentUpon>StudentReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Report_Tien\StudentExam.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\Report_Tien\StudentExam1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StudentExam.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\Report_Tien\StudentReport.cs">
       <SubType>Component</SubType>
@@ -182,12 +197,19 @@
     <EmbeddedResource Include="Forms\Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report\Exam\ExamReportForm.resx">
+      <DependentUpon>ExamReportForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Report\Student\StudentReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>StudentReport.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Report\Student\StudentReportForm.resx">
       <DependentUpon>StudentReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report_Tien\StudentExam.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>StudentExam1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Report_Tien\StudentReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

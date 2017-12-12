@@ -6,6 +6,7 @@ using QuanLyDiemSinhVien.Models.User;
 
 using QuanLyDiemSinhVien.Forms.Base;
 using QuanLyDiemSinhVien.Forms.Report.Student;
+using QuanLyDiemSinhVien.Forms.Report.Exam;
 
 namespace QuanLyDiemSinhVien.Forms.Science
 {
@@ -216,6 +217,12 @@ namespace QuanLyDiemSinhVien.Forms.Science
         {
             StudentReportForm studentReportForm = new StudentReportForm();
             showForm(studentReportForm);
+        }
+
+        private void onExamReport(object sender, ItemClickEventArgs e)
+        {
+            ExamReportForm examForm = new ExamReportForm();
+            showForm(examForm);
         }
     }
 }

@@ -408,6 +408,22 @@ namespace QuanLyDiemSinhVien.Sql
             });
         }
 
+        //  Get class
+        string SE_MD_GET_CREDIT_CLASS = "SELECT MaLTC FROM {0}LOP_TC";
+        public void MDGetCreditClass(string scienceID, SuccessBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            string server = scienceID == this.scienceID ? "" : "LINK1.QLDSV.dbo.";
+            string sql = string.Format(SE_MD_GET_CREDIT_CLASS, server);
+
+            //  Exec sql
+            execSql(sql, response => {
+                success(response);
+            }, error => {
+                failure(error);
+            });
+        }
+
         //  Utils
         string dateToYYYYMMDD(DateTime date)
         {

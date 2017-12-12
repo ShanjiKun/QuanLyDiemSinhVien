@@ -117,7 +117,7 @@ namespace QuanLyDiemSinhVien.Forms.Teacher.InputPoint
             }
 
             //  Inserting
-            SqlClient.sharedInstance().updateStudent(studentId, creditId, point, () => {
+            SqlClient.sharedInstance().updatePoint(studentId, creditId, point, () => {
                 MessageBox.Show("Cập nhật điểm thành công!");
                 //  Change state view
                 changeFormStateTo(FormState.VIEW);

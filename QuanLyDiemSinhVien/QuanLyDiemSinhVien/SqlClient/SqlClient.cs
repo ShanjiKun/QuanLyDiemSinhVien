@@ -19,6 +19,9 @@ namespace QuanLyDiemSinhVien.Sql
         //  BaseURL
         string initURL = "Data Source = {0}; Initial Catalog = QLDSV; User ID = {1}; Password={2}";
 
+        //  Student password default
+        string PW_STUDENT = "1234";
+
         //  Login
         string SE_LOGIN = "EXEC SP_Login '{0}'";
 
@@ -87,7 +90,8 @@ namespace QuanLyDiemSinhVien.Sql
         public void login(Dictionary<string, string> param, SuccessNonParamBlock success, FailureBlock failure)
         {
             //  Init Base Connect String
-            sqlConnectString = string.Format(initURL, param["server"], param["username"], param["password"]);
+            string password = param["password"] == "" ? PW_STUDENT : param["password"];
+            sqlConnectString = string.Format(initURL, param["server"], param["username"], password);
 
             //  Init sql
             string sql = string.Format(SE_LOGIN, param["username"]);
@@ -355,9 +359,13 @@ namespace QuanLyDiemSinhVien.Sql
             string sql = string.Format(SE_INSERT_STUDENT, id, name, sex, address, birthDay, year, classID, major);
 
             //  Exec sql
-            execSqlNoResponse(sql, ()=> {
-                success();
-            }, error=> {
+            execSqlNoResponse(sql, () => {
+                signup(id, PW_STUDENT, id, "SINHVIEN", () => {
+                    success();
+                }, errorMessage => {
+                    failure(errorMessage);
+                });
+            }, error => {
                 failure(error);
             });
         }
@@ -378,7 +386,7 @@ namespace QuanLyDiemSinhVien.Sql
         }
 
         //  Update point
-        public void updateStudent(string studentId, string creditId, string point, SuccessNonParamBlock success, FailureBlock failure)
+        public void updatePoint(string studentId, string creditId, string point, SuccessNonParamBlock success, FailureBlock failure)
         {
             //  Init sql
             string sql = string.Format(SE_UPDATE_POINT, point, studentId, creditId);
@@ -386,6 +394,38 @@ namespace QuanLyDiemSinhVien.Sql
             //  Exec sql
             execSqlNoResponse(sql, () => {
                 success();
+            }, error => {
+                failure(error);
+            });
+        }
+
+        // MARK: Sign Up
+        string SE_SIGN_UP = "EXECUTE SP_SignUp '{0}' ,'{1}' ,'{2}' ,'{3}'";
+        public void signup(string login, string password, string id, string role, SuccessNonParamBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            string sql = string.Format(SE_SIGN_UP, login, password, id, role);
+
+            //  Exec sql
+            execSqlNoResponse(sql, () => {
+                success();
+            }, error => {
+                failure(error);
+            });
+        }
+
+        string SE_CHECK_SIGN_UP_EMPLOYEE = "SELECT MaNV FROM NHAN_VIEN WHERE MaNV={0}";
+        string SE_CHECK_SIGN_UP_TEACHER = "SELECT MaGV FROM GIANG_VIEN WHERE MaGV='{0}'";
+        public void checkSignUp(string id, SuccessBlock success, FailureBlock failure)
+        {
+            string role = UserProfile.sharedInstance().role;
+            string query = role == "PGV" ? SE_CHECK_SIGN_UP_EMPLOYEE : SE_CHECK_SIGN_UP_TEACHER;
+            //  Init sql
+            string sql = string.Format(query, id);
+
+            //  Exec sql
+            execSql(sql, response => {
+                success(response);
             }, error => {
                 failure(error);
             });

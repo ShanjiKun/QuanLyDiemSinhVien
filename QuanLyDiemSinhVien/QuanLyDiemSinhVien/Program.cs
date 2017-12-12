@@ -7,6 +7,7 @@ using DevExpress.Skins;
 using DevExpress.LookAndFeel;
 using QuanLyDiemSinhVien.Forms.Login;
 using QuanLyDiemSinhVien.Forms.Base;
+using QuanLyDiemSinhVien.Models.User;
 
 namespace QuanLyDiemSinhVien
 {
@@ -29,6 +30,16 @@ namespace QuanLyDiemSinhVien
             SkinManager.EnableFormSkins();
             UserLookAndFeel.Default.SetSkinStyle("DevExpress Style");
             Application.Run(new LoginForm());
+        }
+
+        public static void logout()
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+
+            UserProfile.sharedInstance().reset();
+
+            Program.ribbonForm.Close();
         }
     }
 }

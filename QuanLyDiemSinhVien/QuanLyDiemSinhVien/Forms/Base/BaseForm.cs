@@ -52,5 +52,10 @@ namespace QuanLyDiemSinhVien.Forms.Base
         {
             //  Override at child class
         }
+
+        public virtual void onRegister()
+        {
+
+        }
     }
 }

@@ -8,6 +8,7 @@ using QuanLyDiemSinhVien.Forms.Base;
 using QuanLyDiemSinhVien.Forms.Report.Student;
 using QuanLyDiemSinhVien.Forms.Report.Exam;
 using QuanLyDiemSinhVien.Forms.Report.Subject;
+using QuanLyDiemSinhVien.Forms.Login;
 
 namespace QuanLyDiemSinhVien.Forms.Science
 {
@@ -230,6 +231,17 @@ namespace QuanLyDiemSinhVien.Forms.Science
         {
             SubjectReport subjectReport = new SubjectReport();
             showForm(subjectReport);
+        }
+
+        private void onRegister(object sender, ItemClickEventArgs e)
+        {
+            SignUpForm form = new SignUpForm();
+            showForm(form);
+        }
+
+        private void onLogout(object sender, ItemClickEventArgs e)
+        {
+            Program.logout();
         }
     }
 }

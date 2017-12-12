@@ -33,5 +33,10 @@ namespace QuanLyDiemSinhVien.Models.User
             this.name = dict["Name"] as string;
             this.role = dict["Role"] as string;
         }
+
+        public void reset()
+        {
+            instance = null;
+        }
     }
 }

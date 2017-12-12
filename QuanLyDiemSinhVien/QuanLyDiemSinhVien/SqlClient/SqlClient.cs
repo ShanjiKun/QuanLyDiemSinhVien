@@ -59,6 +59,9 @@ namespace QuanLyDiemSinhVien.Sql
         //  Insert Student
         string SE_INSERT_STUDENT = "INSERT INTO SINH_VIEN(MaSV, HoTen, Phai, DiaChi, NgaySinh, KhoaHoc, MaLop, MaCN) VALUES('{0}', N'{1}', N'{2}', N'{3}', '{4}', {5}, '{6}', {7})";
 
+        //  Update Student
+        string SE_UPDATE_STUDENT = "UPDATE SINH_VIEN SET HoTen = N'{0}', Phai = N'{1}', DiaChi = N'{2}', NgaySinh = '{3}', KhoaHoc = '{4}', MaCN = {5} WHERE MaSV = '{6}'";
+
         //  Update point
         string SE_UPDATE_POINT = "UPDATE DANG_KY_MON_HOC SET Diem = {0} WHERE MaSV = '{1}' AND MaLTC = '{2}'";
 
@@ -321,6 +324,21 @@ namespace QuanLyDiemSinhVien.Sql
             execSqlNoResponse(sql, ()=> {
                 success();
             }, error=> {
+                failure(error);
+            });
+        }
+
+        //  Update Student
+        public void updateStudent(string id, string name, string sex, string address, string birthDay, string year, string classID, string major, SuccessNonParamBlock success, FailureBlock failure)
+        {
+            //  Init sql
+            major = major == "NULL" ? "NULL" : "'" + major + "'";
+            string sql = string.Format(SE_UPDATE_STUDENT, name, sex, address, birthDay, year, major, id);
+
+            //  Exec sql
+            execSqlNoResponse(sql, () => {
+                success();
+            }, error => {
                 failure(error);
             });
         }

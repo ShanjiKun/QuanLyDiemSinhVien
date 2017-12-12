@@ -80,16 +80,20 @@
     <Compile Include="Forms\Report\Exam\ExamReportForm.Designer.cs">
       <DependentUpon>ExamReportForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Report\StranStudent\StranStudent.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\Report\StranStudent\StranStudent1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StranStudent.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\Report\StranStudent\StranStudentForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Report\StranStudent\StranStudentForm.Designer.cs">
       <DependentUpon>StranStudentForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Report\StranStudent\StranStudentReport.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StranStudentReport.rpt</DependentUpon>
     </Compile>
     <Compile Include="Forms\Report\Student\StudentReport.cs">
       <AutoGen>True</AutoGen>
@@ -226,12 +230,12 @@
     <EmbeddedResource Include="Forms\Report\Exam\ExamReportForm.resx">
       <DependentUpon>ExamReportForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report\StranStudent\StranStudent.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>StranStudent1.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Report\StranStudent\StranStudentForm.resx">
       <DependentUpon>StranStudentForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Report\StranStudent\StranStudentReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>StranStudentReport.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Report\Student\StudentReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

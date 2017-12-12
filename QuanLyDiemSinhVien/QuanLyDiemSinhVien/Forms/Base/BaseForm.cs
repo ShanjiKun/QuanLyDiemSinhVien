@@ -12,7 +12,8 @@ namespace QuanLyDiemSinhVien.Forms.Base
         public enum FormState
         {
             VIEW,
-            ADD
+            ADD,
+            EDIT,
         }
 
         //  Methods

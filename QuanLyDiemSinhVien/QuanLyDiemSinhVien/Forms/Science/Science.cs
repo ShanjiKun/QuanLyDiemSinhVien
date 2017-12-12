@@ -71,6 +71,7 @@ namespace QuanLyDiemSinhVien.Forms.Science
 
         public override void enableButtons(List<BarButtonType> buttonTypes)
         {
+            disableButtons();
             foreach (BarButtonType btnType in buttonTypes)
             {
                 switch(btnType)

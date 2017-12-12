@@ -42,6 +42,73 @@ namespace QuanLyDiemSinhVien.Forms.Science.Classes
             this.lOPTableAdapter.Fill(this.qLDSVDataSet_Tables.LOP);
         }
 
+        //  MARK: Methods
+        void addNew()
+        {
+            string classID = teClass.Text;
+            string name = teName.Text;
+            if (classID.Length == 0)
+            {
+                MessageBox.Show("Nhập mã lớp");
+                return;
+            }
+
+            if (name.Length == 0)
+            {
+                MessageBox.Show("Nhập tên lớp");
+                return;
+            }
+
+            //  Inserting
+            SqlClient.sharedInstance().insertClass(classID, name, () => {
+                MessageBox.Show("Thêm lớp thành công!");
+                //  Change state view
+                changeFormStateTo(FormState.VIEW);
+
+                //  Refresh Adapters
+                loadAdapters();
+            }, errorMessage => {
+                MessageBox.Show("Thêm lớp thất bại, lỗi: \n\n" + errorMessage);
+            });
+        }
+
+        void save()
+        {
+            string classID = teClass.Text;
+            string name = teName.Text;
+            if (classID.Length == 0)
+            {
+                MessageBox.Show("Nhập mã lớp");
+                return;
+            }
+
+            if (name.Length == 0)
+            {
+                MessageBox.Show("Nhập tên lớp");
+                return;
+            }
+
+            //  Updating
+            SqlClient.sharedInstance().updateClass(classID, name, () => {
+                MessageBox.Show("Cập nhập lớp thành công!");
+                //  Change state view
+                changeFormStateTo(FormState.VIEW);
+
+                //  Refresh Adapters
+                loadAdapters();
+
+            }, errorMessage => {
+
+                MessageBox.Show("Cập nhật lớp thất bại, lỗi: \n\n" + errorMessage);
+
+            });
+        }
+
+        void delete()
+        {
+
+        }
+
         //  MARK: Handle Form State
         void changeFormStateTo(FormState state)
         {
@@ -57,6 +124,11 @@ namespace QuanLyDiemSinhVien.Forms.Science.Classes
                         handleFormStateAdd();
                         break;
                     }
+                case FormState.EDIT:
+                    {
+                        handleFormStateEdit();
+                        break;
+                    }
                 default:
                     break;
             }
@@ -67,7 +139,7 @@ namespace QuanLyDiemSinhVien.Forms.Science.Classes
             //  Show button
             if (this.qLDSVDataSet_Tables.LOP.Rows.Count > 0)
             {
-                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit });
+                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit, FormScience.BarButtonType.Delete });
             }
             else
             {
@@ -97,42 +169,42 @@ namespace QuanLyDiemSinhVien.Forms.Science.Classes
             btnCancel.Show();
         }
 
-        //  MARK: Methods
-        void addNew()
+        void handleFormStateEdit()
         {
-            string classID = teClass.Text;
-            string name = teName.Text;
-            if (classID.Length == 0)
-            {
-                MessageBox.Show("Nhập mã lớp");
-                return;
-            }
+            //  Hide buttons
+            Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Save });
 
-            if (name.Length == 0)
-            {
-                MessageBox.Show("Nhập tên lớp");
-                return;
-            }
+            //  Disable fields
+            teClass.Enabled = false;
+            teName.Enabled = true;
 
-            //  Inserting
-            SqlClient.sharedInstance().insertClass(classID, name, ()=> {
-                MessageBox.Show("Thêm lớp thành công!");
-                //  Change state view
-                changeFormStateTo(FormState.VIEW);
-
-                //  Refresh Adapters
-                loadAdapters();
-            },errorMessage=> {
-                MessageBox.Show("Thêm lớp thất bại, lỗi: \n\n" + errorMessage);
-            });
+            //  Disable add button
+            btnAdd.Hide();
+            btnCancel.Show();
         }
 
-        //  MARK: Actions
+        //  MARK: Override
         public override void onAdd()
         {
             changeFormStateTo(FormState.ADD);
         }
 
+        public override void onEdit()
+        {
+            changeFormStateTo(FormState.EDIT);
+        }
+
+        public override void onSave()
+        {
+            save();
+        }
+
+        public override void onDelete()
+        {
+            delete();
+        }
+
+        //  MARK: Actions
         private void onAdd(object sender, EventArgs e)
         {
             addNew();
@@ -141,6 +213,9 @@ namespace QuanLyDiemSinhVien.Forms.Science.Classes
         private void onCancel(object sender, EventArgs e)
         {
             changeFormStateTo(FormState.VIEW);
+
+            //  Refresh Adapters
+            loadAdapters();
         }
     }
 }

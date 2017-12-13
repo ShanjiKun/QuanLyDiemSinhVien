@@ -42,7 +42,7 @@ namespace QuanLyDiemSinhVien.Sql
         string SE_GET_SPECIFY_CREDIT_CLASS_INFOR = "SELECT MaLTC, m.Ten, Nhom, NgayThi, HocKy, MaNK FROM MON m INNER JOIN (SELECT MaLTC, MaMon, Nhom, NgayThi, HocKy, MaNK FROM LOP_TC WHERE MaLTC = {0}) tc ON m.MaMon = tc.MaMon";
 
         //  Get Registered
-        string SE_GET_REGISTERED = "SELECT MaLTC FROM DANG_KY_MON_HOC WHERE MaSV = '{0}'";
+        string SE_GET_REGISTERED = "SELECT dk.MaLTC FROM VIEW_ValidCreditClass vv INNER JOIN (SELECT MaLTC FROM DANG_KY_MON_HOC WHERE MaSV = '{0}') dk ON vv.MaLTC = dk.MaLTC";
 
         //  Insert Registration
         string SE_INSERT_REGISTRATION = "INSERT INTO DANG_KY_MON_HOC(MaSV, MaLTC) VALUES('{0}', {1})";

@@ -191,7 +191,7 @@ namespace QuanLyDiemSinhVien.Forms.Science.Subject
             //  Show button
             if (this.qLDSVDataSet_Tables.MON.Rows.Count > 0)
             {
-                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit, FormScience.BarButtonType.Delete });
+                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit});
             }
             else
             {

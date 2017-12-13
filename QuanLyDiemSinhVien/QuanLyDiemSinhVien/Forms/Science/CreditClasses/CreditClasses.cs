@@ -298,7 +298,7 @@ namespace QuanLyDiemSinhVien.Forms.Science.CreditClasses
             //  Show button
             if (this.qLDSVDataSet_Tables.LOP_TC.Rows.Count > 0)
             {
-                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit });
+                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add});
             }
             else
             {

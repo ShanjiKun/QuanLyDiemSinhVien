@@ -105,7 +105,7 @@
             this.tbUserName.Name = "tbUserName";
             this.tbUserName.Size = new System.Drawing.Size(149, 21);
             this.tbUserName.TabIndex = 4;
-            this.tbUserName.Text = "dieunhi";
+            this.tbUserName.Text = "hienminh";
             // 
             // label4
             // 
@@ -123,7 +123,6 @@
             this.tbPassword.PasswordChar = '*';
             this.tbPassword.Size = new System.Drawing.Size(149, 21);
             this.tbPassword.TabIndex = 6;
-            this.tbPassword.Text = "1234";
             // 
             // button1
             // 

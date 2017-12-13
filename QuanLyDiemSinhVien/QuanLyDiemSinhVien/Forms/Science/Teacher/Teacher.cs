@@ -155,7 +155,7 @@ namespace QuanLyDiemSinhVien.Forms.Science.Teacher
             //  Show button
             if (this.qLDSVDataSet_Tables.GIANG_VIEN.Rows.Count > 0)
             {
-                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit, FormScience.BarButtonType.Delete });
+                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit});
             }
             else
             {

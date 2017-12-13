@@ -234,7 +234,7 @@ namespace QuanLyDiemSinhVien.Forms.Science.Student
             //  Show button
             if (this.qLDSVDataSet.SP_GetStudentByClass.Rows.Count > 0)
             {
-                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit, FormScience.BarButtonType.Delete });
+                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Edit });
             }
             else
             {

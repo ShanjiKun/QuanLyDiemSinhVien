@@ -74,7 +74,9 @@ namespace QuanLyDiemSinhVien.Forms.Report.Exam
                     Dictionary<string, object> creditInfor = list[0] as Dictionary<string, object>;
                     MON = creditInfor["Ten"] as string;
                     NHOM = ((int)creditInfor["Nhom"]).ToString();
-                    NGAYTHI = ((DateTime)creditInfor["NgayThi"]).ToString();
+
+                    DateTime examDay = (DateTime)creditInfor["NgayThi"];
+                    NGAYTHI = examDay.Day.ToString() + "/" + examDay.Month.ToString() + "/" + examDay.Year.ToString();
                 }
             }, error => {
                 MessageBox.Show("Lấy thông tin lớp tín chỉ lỗi, lỗi: \n\n" + error);

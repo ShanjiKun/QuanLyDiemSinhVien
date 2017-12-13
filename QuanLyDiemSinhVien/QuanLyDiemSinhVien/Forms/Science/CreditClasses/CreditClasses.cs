@@ -89,6 +89,11 @@ namespace QuanLyDiemSinhVien.Forms.Science.CreditClasses
             changeFormStateTo(FormState.ADD);
         }
 
+        public override void onDelete()
+        {
+            delete();
+        }
+
         private void onCreditClass(object sender, EventArgs e)
         {
             changeDataRow(gridView1.GetFocusedDataRow());
@@ -149,6 +154,30 @@ namespace QuanLyDiemSinhVien.Forms.Science.CreditClasses
                 //  Change state view
                 changeFormStateTo(FormState.VIEW);
             }
+        }
+
+        void delete()
+        {
+            DataRowView currentClass =  lOP_TCBindingSource.Current as DataRowView;
+            string id = ((int)currentClass["MaLTC"]).ToString();
+
+            SqlClient.sharedInstance().cancelCreditClass(id, response => {
+                string res = response as string;
+                if (res == "SUCCESS")
+                {
+                    //  Change state view
+                    changeFormStateTo(FormState.VIEW);
+                    loadAdapters();
+                    loadFirstRow();
+                    MessageBox.Show("Hủy Lớp TC " + id + " thành công");
+                }
+                else
+                {
+                    MessageBox.Show("Hủy Lớp TC " + id + " thất bại, lỗi: \n\n Không thể hủy lớp tín chỉ đã có chi tiết");
+                }
+            }, errorMessage => {
+                MessageBox.Show("Hủy Lớp TC " + id + " thất bại, lỗi: \n\n " + errorMessage);
+            });
         }
 
         void changeDataRow(DataRow row)
@@ -298,7 +327,7 @@ namespace QuanLyDiemSinhVien.Forms.Science.CreditClasses
             //  Show button
             if (this.qLDSVDataSet_Tables.LOP_TC.Rows.Count > 0)
             {
-                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add});
+                Program.ribbonForm.enableButtons(new List<FormScience.BarButtonType> { FormScience.BarButtonType.Add, FormScience.BarButtonType.Delete});
             }
             else
             {
@@ -318,6 +347,7 @@ namespace QuanLyDiemSinhVien.Forms.Science.CreditClasses
 
             //  Handle buttons
             btnAdd.Hide();
+            btnCancel.Hide();
             btnAddDetail.Show();
         }
 
@@ -339,6 +369,7 @@ namespace QuanLyDiemSinhVien.Forms.Science.CreditClasses
 
             //  Handle buttons
             btnAdd.Show();
+            btnCancel.Show();
             btnAddDetail.Hide();
         }
 
@@ -366,6 +397,14 @@ namespace QuanLyDiemSinhVien.Forms.Science.CreditClasses
         int compareDates(DateTime date1, DateTime date2)
         {
             return DateTime.Compare(date1, date2);
+        }
+
+        private void onCancel(object sender, EventArgs e)
+        {
+            //  Change state view
+            changeFormStateTo(FormState.VIEW);
+            loadAdapters();
+            loadFirstRow();
         }
     }
 }

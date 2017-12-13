@@ -123,7 +123,7 @@ namespace QuanLyDiemSinhVien.Forms.Student.RegisterCreditClass
             {
                 if (item.details == null || item.details.Count == 0)
                 {
-                    MessageBox.Show("{0} không có CT_LOP_TC", item.creditID.ToString());
+                    MessageBox.Show("Lop "+ item.creditID.ToString() + " không có CT_LOP_TC");
                 }
                 else
                 {

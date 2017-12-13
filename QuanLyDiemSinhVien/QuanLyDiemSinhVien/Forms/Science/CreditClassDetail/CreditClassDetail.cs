@@ -136,6 +136,7 @@ namespace QuanLyDiemSinhVien.Forms.Science.CreditClassDetail
 
             //  Disable add button
             btnAdd.Hide();
+            btnCancel.Hide();
         }
 
         void handleFormStateAdd()
@@ -153,6 +154,7 @@ namespace QuanLyDiemSinhVien.Forms.Science.CreditClassDetail
 
             //  Disable add button
             btnAdd.Show();
+            btnCancel.Show();
         }
 
         //  MARK: Actions
@@ -280,6 +282,13 @@ namespace QuanLyDiemSinhVien.Forms.Science.CreditClassDetail
         int compareDates(DateTime date1, DateTime date2)
         {
             return DateTime.Compare(date1, date2);
+        }
+
+        private void onCancel(object sender, EventArgs e)
+        {
+            loadAdapters();
+            loadFirstRow();
+            changeFormStateTo(FormState.VIEW);
         }
     }
 }

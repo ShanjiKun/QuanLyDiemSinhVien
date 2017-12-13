@@ -52,6 +52,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.qLDSVDataSet_Tables)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cT_LOP_TCBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cT_LOP_TCGridControl)).BeginInit();
@@ -77,6 +78,7 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.CHUYEN_NGANHTableAdapter = null;
             this.tableAdapterManager.CT_LOP_TCTableAdapter = this.cT_LOP_TCTableAdapter;
             this.tableAdapterManager.GIANG_VIENTableAdapter = null;
             this.tableAdapterManager.KHOATableAdapter = null;
@@ -246,11 +248,22 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.onAdd);
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(124, 465);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 15;
+            this.btnCancel.Text = "Hủy";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.onCancel);
+            // 
             // CreditClassDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(746, 496);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -305,5 +318,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

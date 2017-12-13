@@ -62,6 +62,7 @@
             this.panelAdding = new System.Windows.Forms.Panel();
             this.btnAddDetail = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.qLDSVDataSet_Tables)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lOP_TCBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCreditClass)).BeginInit();
@@ -89,6 +90,7 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.CHUYEN_NGANHTableAdapter = null;
             this.tableAdapterManager.CT_LOP_TCTableAdapter = null;
             this.tableAdapterManager.GIANG_VIENTableAdapter = null;
             this.tableAdapterManager.KHOATableAdapter = null;
@@ -317,6 +319,7 @@
             this.panelAdding.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelAdding.Controls.Add(this.btnCancel);
             this.panelAdding.Controls.Add(this.btnAddDetail);
             this.panelAdding.Controls.Add(this.btnAdd);
             this.panelAdding.Controls.Add(this.dpExam);
@@ -344,7 +347,7 @@
             // 
             // btnAddDetail
             // 
-            this.btnAddDetail.Location = new System.Drawing.Point(115, 273);
+            this.btnAddDetail.Location = new System.Drawing.Point(194, 273);
             this.btnAddDetail.Name = "btnAddDetail";
             this.btnAddDetail.Size = new System.Drawing.Size(121, 23);
             this.btnAddDetail.TabIndex = 21;
@@ -361,6 +364,16 @@
             this.btnAdd.Text = "Thêm";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.onAdd);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(113, 273);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 22;
+            this.btnCancel.Text = "Hủy";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.onCancel);
             // 
             // CreditClasses
             // 
@@ -421,5 +434,6 @@
         private System.Windows.Forms.Panel panelAdding;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnAddDetail;
+        private System.Windows.Forms.Button btnCancel;
     }
 }
